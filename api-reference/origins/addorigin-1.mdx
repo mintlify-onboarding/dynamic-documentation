@@ -1,0 +1,87 @@
+---
+title: "Adds an allowed origin for this project environment"
+api: "POST https://app.dynamic.xyz/api/v0/environments/{environmentId}/origins"
+---
+
+### Path Parameters
+
+<ParamField path="environmentId" type="string" required>
+  ID of the environment
+</ParamField>
+
+### Body Parameters
+
+<ParamField body="origin" type="string" required>
+  An [RFC 6454](https://www.rfc-editor.org/rfc/rfc6454) valid url. Must not
+  include any paths. A single wildcard (*) can be used as the first subdomain.
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 200">
+
+<ResponseField name="origins" type="array of objects" >
+    <Accordion title="Show properties" >
+
+        <ResponseField name="id" type="string" />
+
+        <ResponseField name="origin" type="string" >
+            An [RFC 6454](https://www.rfc-editor.org/rfc/rfc6454) valid url. Must not include any paths. A single wildcard (*) can be used as the first subdomain.
+        </ResponseField>
+
+        <ResponseField name="createdAt" type="date-time" />
+        <ResponseField name="projectEnvironmentId" type="string" />
+
+    </Accordion>
+
+</ResponseField>
+
+</Tab>
+
+<Tab title="🔴 400">
+Unauthorized
+
+<ResponseField name="error" type="string" />
+<ResponseField name="status" type="number" />
+
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 422">
+Unaprocessable Entity
+
+<ResponseField name="error" type="string" required />
+
+<ResponseField name="code" type="string">
+  `email_already_exists` `allowlist_already_exists`
+  `allowlist_entry_already_exists` `reassign_wallet_error`
+  `reassign_wallet_confirm` `members_cannot_delete_themself`
+  `username_already_exists` `wrong_email_verification_token`
+  `invalid_email_verification` `too_many_email_verification_attempts`
+  `organization_name_already_exists` `project_name_already_exists`
+  `wallet_not_deployed`
+</ResponseField>
+
+</Tab>
+
+<Tab title="🔴 500">
+Error response
+
+<ResponseField name="error" type="string" />
+ 
+</Tab>
+
+</Tabs>

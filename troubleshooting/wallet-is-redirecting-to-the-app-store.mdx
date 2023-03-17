@@ -1,0 +1,13 @@
+---
+title: "Wallet is redirecting to the App Store"
+---
+
+If a user is loading the site on on iOS, and is being redirected to the mobile app store instead of the wallet, then a user may need to uninstall and reinstall the wallet.
+
+This is happening because the deeplinks "breaks" (ie, a user is getting redirected to the app store). The scenario specifically arises after a user does the following:
+
+1. The user is in incognito mode
+2. The user will get a pop up to Cancel/Open the wallet
+3. The user clicks cancel.
+
+This will cause the deeplinks in iOS for that wallet to break across any site. The only way to reset the deeplinks for the impacted wallet is to delete and re-install the wallet.

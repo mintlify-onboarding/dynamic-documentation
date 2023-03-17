@@ -1,0 +1,43 @@
+---
+title: "Vite.js polyfills necessary for Dynamic SDK"
+---
+
+## Vite.js requires global and process polyfills
+
+If you're using Vite.js with react and using the Dynamic SDK you may get this error in your console:
+
+```
+util.js:109 Uncaught ReferenceError: process is not defined
+```
+
+This is because one of the many libraries that our SDK depends on uses the `process` module which is natively not in the browser environment nor is it automatically polyfilled by Vite.
+
+#### Polyfill `process` using `vite.config.js`
+
+To fix this we must modify the `vite.config.js` file to modify `esbuild` to polyfill this for us. Here is a minimal example config:
+
+```TypeScript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
+import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
+
+export default defineConfig({
+  optimizeDeps: {
+    esbuildOptions: {
+      // Enable esbuild polyfill plugins
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          process: true,
+        }),
+        NodeModulesPolyfillPlugin(),
+      ],
+    },
+  },
+  plugins: [react()],
+});
+```
+
+#### Warning: You may still see a console error `React Static Flag Error`
+
+After applying the polyfill, you may still see an error for `React Static Flag Error`. This is currently expected. To learn more, checkout the troubleshooting page [React Static Flag Error](/docs/react-static-flag-error). At this time, you can ignore this error in local development environment.

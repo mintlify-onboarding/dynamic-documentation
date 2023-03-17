@@ -1,0 +1,27 @@
+---
+title: "OnAuthFlowOpen"
+---
+
+### Summary
+
+This callback will be called after the auth flow modal is opened.
+
+### Usage
+
+```TypeScript
+<DynamicContextProvider
+  settings={{
+    eventsCallbacks: {
+      onAuthFlowOpen: () => {
+        console.log('onAuthFlowOpen was called');
+      }
+    }
+  }}
+>
+ {/* ... rest of your app ... */}
+</DynamicContextProvider>
+```
+
+### Callback Argument Value
+
+None

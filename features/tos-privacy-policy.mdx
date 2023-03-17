@@ -1,0 +1,48 @@
+---
+title: "TOS & Privacy Policy"
+---
+
+![Add your Terms of Service and Privacy Policy](/images/18c188d-Screen_Shot_2022-11-29_at_2.49.20_PM.png)
+
+### Summary
+
+Displaying your Terms of Service and Privacy Policy are an important step of customer onboarding. We give you the flexibility to display those two documents in our SDK or you can hide the links and display them somehwere else in your site.
+
+### Setup
+
+#### privacyPolicyUrl \(optional\) & termsOfServiceUrl \(optional\)
+
+We currently display the Terms of Service and Privacy Policy during the connecting step of the SDK.
+
+If you want to update the links, then you can do so by updating the props in settings.
+
+```TypeScript
+<DynamicContextProvider
+  settings={{
+    environmentId: "1234abcd-1234-abcd-1234-abcd12343abc",
+    appName: "My Cool App",
+    appLogoUrl: "..."
+    apiBaseUrl: "https://app.dynamic.xyz/api/v0",
+    privacyPolicyUrl: "https://example.com/policies/privacy-policy",
+    termsOfServiceUrl: "https://example.com/policies/terms-of-service",
+    ...
+  }}
+>
+```
+
+#### Hiding the Terms of Service and Privacy Policy Copy
+
+If you don't want to display this text, then you can instead hide the sentence with:
+
+```TypeScript
+<DynamicContextProvider
+  settings={{
+    environmentId: "1234abcd-1234-abcd-1234-abcd12343abc",
+    appName: "My Cool App",
+    appLogoUrl: "..."
+    apiBaseUrl: "https://app.dynamic.xyz/api/v0",
+    displayTermsOfService: false,
+    ...
+  }}
+>
+```

@@ -1,0 +1,35 @@
+---
+title: "OnUnlinkSuccess"
+---
+
+### Summary
+
+This callback will be called when the user successfully unlinks a wallet.
+
+### Usage
+
+```TypeScript
+<DynamicContextProvider
+  settings={{
+    eventsCallbacks: {
+      onUnlinkSuccess: (args) => {
+        console.log('onUnlinkSuccess was called', args);
+      }
+    }
+  }}
+>
+ {/* ... rest of your app ... */}
+</DynamicContextProvider>
+```
+
+### Callback Argument Value
+
+```TypeScript
+unlinkedWallet: JwtBlockchainAccount
+```
+
+This is called with the wallet that was just unlinked.
+
+<Note>
+### 📘 For details about JwtBlockchainAccount, see here: [https://docs.dynamic.xyz/docs/jwtblockchainaccount](/docs/userprofile)
+</Note>

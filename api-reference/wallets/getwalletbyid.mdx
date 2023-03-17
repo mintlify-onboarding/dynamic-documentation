@@ -1,0 +1,56 @@
+---
+title: "Get a wallet using the ID"
+api: "GET https://app.dynamic.xyz/api/v0/wallets/{walletId}"
+---
+
+### Path Parameters
+
+<ParamField path="walletId" type="string" required>
+  UUID of the wallet
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 200">
+
+<ResponseField name="id" type="string" required />
+<ResponseField name="name" type="string" required />
+
+<ResponseField name="chain" type="string" required>
+  `ETH` `EVM` `FLOW` `SOL` `ALGO` `STARK`
+</ResponseField>
+
+<ResponseField name="publicKey" type="string" required>
+  Valid blockchain wallet address, must be an alphanumeric string without any
+  special characters
+</ResponseField>
+
+<ResponseField name="provider" type="string" required>
+  `browserExtension` `custodialService` `walletConnect` `qrCode` `deepLink`
+</ResponseField>
+
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 404">Not found</Tab>
+
+<Tab title="🔴 500">
+Internal Server Error
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+</Tabs>

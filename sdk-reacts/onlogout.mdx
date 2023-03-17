@@ -1,0 +1,35 @@
+---
+title: "OnLogout"
+---
+
+### Summary
+
+This callback will be called after the user logs out.
+
+### Usage
+
+```TypeScript
+<DynamicContextProvider
+  settings={{
+    eventsCallbacks: {
+      onLogout: (args) => {
+        console.log('onLogout was called', args);
+      }
+    }
+  }}
+>
+ {/* ... rest of your app ... */}
+</DynamicContextProvider>
+```
+
+### Callback Argument Value
+
+```TypeScript
+user: UserProfile | undefined;
+```
+
+If your auth mode is connect-only, then the user argument will be undefined, otherwise the user argument will be the user object that just logged out.
+
+<Note>
+### 📘 For details about UserProfile, see here: [https://docs.dynamic.xyz/docs/userprofile](/docs/userprofile)
+</Note>

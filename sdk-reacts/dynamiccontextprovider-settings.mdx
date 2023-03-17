@@ -1,0 +1,80 @@
+---
+title: "DynamicContextProvider"
+---
+
+## Settings
+
+Settings available when you first initialize `DynamicContextProvider` in your App.
+
+| Method                                                           | Description                                                                                                                                                                                                                                                                                               |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| accessDeniedMessagePrimary?: string;                             | Custom main error message used when a wallet attempts to authenticate via Dynamic and is rejected because it does not have access. Defaults to “Access denied”                                                                                                                                            |
+| accessDeniedMessageSecondary?: string;                           | Custom secondary error message used when a wallet attempts to authenticate via Dynamic and is rejected because it does not have access. Defaults to “We couldn't find your wallet address on our access list of customers.”                                                                               |
+| cssOverrides?: string \| JSX.Element;                            | Allows for custom CSS overrides via ShadowDom. Please see: [Custom CSS](/docs/custom-css)\]                                                                                                                                                                                                               |
+| debugError?: boolean;                                            | When enabled, errors caught during the authentication step and their stack trace will be set in a state and displayed in the front end.                                                                                                                                                                   |
+| displayTermsOfService?: boolean;                                 | When enabled, this will show a message on terms of service and privacy policy in the signing message on the authentication step.                                                                                                                                                                          |
+| enableVisitTrackingOnConnectOnly?: boolean;                      | When the Dynamic SDK is being used with auth mode = connect-only, we require this to be set to “true” to track visits of connected wallets in this environment.                                                                                                                                           |
+| environmentId: string;                                           | You will need to specify your app’s environment ID, which refers to a unique environment and its settings in Dynamic. To get your environment ID, go to [dashboard’s API tab](https://app.dynamic.xyz/dashboard/api)                                                                                      |
+| eventsCallbacks?: DynamicEventsCallbacks;                        | This prop allows custom event callbacks after important events during the authentication flows for Dynamic's React SDK. For more information, please see: [Callbacks](/docs/callbacks)                                                                                                                    |
+| initialAuthenticationMode?: AuthModeType;                        | Sets the initial SDK authentication mode to either connect-only or connect-and-sign. connect-only does not require users to authenticate to prove ownership of their wallet. connect-and-sign will require an additional step for users to prove ownership of their wallet. Defaults to connect-and-sign. |
+| logLevel?: keyof typeof LogLevel;                                | The log level to use for client side logging with our SDK. Defaults to WARN                                                                                                                                                                                                                               |
+| newToWeb3WalletChainMap?: ChainToWalletMap;                      | When provided, this is used in the Get your first wallet view in the wallet list modal. This can be helpful to steer initial customers who do not have a wallet to download and use a specific chain and wallet.                                                                                          |
+| onboardingImageUrl?: string;                                     | When provided, this image will be shown during the customer information capture step after a wallet successfully authenticates with Dynamic and the environment requires additional information from the user.                                                                                            |
+| policiesConsentInnerComponent?: ReactNode \| ReactNode\[\];      | For environments with the username setting enabled, you will need to pass in a value for this prop to show a custom prompt or label for the policies contest checkboxes displayed during customer information capture after signing.                                                                      |
+| privacyPolicyUrl?: string;                                       | When provided, this will display a privacy policy URL on the signing step. This should be set to a URL of your organization’s privacy policy web page.                                                                                                                                                    |
+| shadowDOMEnabled?: boolean;                                      | Shadow DOM allows the SDK to look as intended wherever it is hosted and it plays nicely with your existing styling system. For more information, please see: [Custom CSS](/docs/custom-css)                                                                                                               |
+| signWithEmailWalletName?: string;                                | Wallet key to set a custodial wallet as a sign in with email button                                                                                                                                                                                                                                       |
+| siweStatement?: string;                                          | When provided, this custom message will be shown on the message to sign for the wallet signing step.                                                                                                                                                                                                      |
+| termsOfServiceUrl?: string;                                      | When provided, this will display a terms of service URL on the signing step. This should be set to a URL of your organization’s terms of service web page.                                                                                                                                                |
+| walletsFilter?: (options: WalletOption\[\]) => WalletOption\[\]; | When specified, this is a custom function that allows clients of Dynamic SDK to filter out wallet options based on a function on the wallet options. For example: walletsFilter: (wallets) => wallets.filter((w) => w.key !== 'walletx') will exclude walletx from showing up on the wallet list.         |
+
+## Examples
+
+#### Initiate Dynamic using only defaults
+
+```JavaScript  
+<DynamicContextProvider
+    settings={{
+      environmentId: '<<sandboxEnvironmentId>>'
+  }}>
+  <MyChildComponents /> 
+</DynamicContextProvider>
+```
+
+#### Do not show `walletx` on the wallet list
+
+```JavaScript
+<DynamicContextProvider
+  settings={{
+    environmentId: '<<sandboxEnvironmentId>>'
+    walletsFilter: (wallets) => wallets.filter((w) => w.key !== 'walletx'),
+  }}
+>
+  <MyChildComponents /> 
+</DynamicContextProvider>
+```
+
+#### With events callbacks
+
+```JavaScript
+<DynamicContextProvider
+    settings={{
+      environmentId: '<<sandboxEnvironmentId>>',
+          eventsCallbacks: {
+        onAuthFlowClose: () => {
+          console.log('in onAuthFlowClose');
+        },
+        onAuthFlowOpen: () => {
+          console.log('in onAuthFlowOpen');
+        },
+        onAuthSuccess: () => {
+          navigate('/dashboard/overview');
+        },
+        onLogout: () => {
+          console.log('in onLogout');
+        },
+      },
+  }}>
+  <MyChildComponents /> 
+</DynamicContextProvider>
+```

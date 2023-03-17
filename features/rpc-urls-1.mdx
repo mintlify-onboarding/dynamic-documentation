@@ -1,0 +1,99 @@
+---
+title: "RPC Urls"
+---
+
+### Summary
+
+On DynamicContext, we provide direct access to RPC providers for EVM & Solana. The rpcProviders can be used to make RPC calls to the blockchain while also providing convenience methods without going through a wallet.
+
+Each provider will use the RPC configured in the Dashboard if present, otherwise they fall back to public RPCs urls. By default, all EVM and Solana networks have public default providers as shown in this table:
+
+| Network         | Public RPC Url                                                                                                                           |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Ethereum        | [https://cloudflare-eth.com](https://cloudflare-eth.com)                                                                                 |
+| Optimism        | [https://mainnet.optimism.io](https://mainnet.optimism.io)                                                                               |
+| Gnosis Chain    | [https://rpc.gnosischain.com](https://rpc.gnosischain.com)                                                                               |
+| Aurora          | [https://mainnet.aurora.dev](https://mainnet.aurora.dev)                                                                                 |
+| Polygon         | [https://polygon-rpc.com](https://polygon-rpc.com)                                                                                       |
+| Palm            | [https://palm-mainnet.infura.io/v3/3a961d6501e54add9a41aa53f15de99b](https://palm-mainnet.infura.io/v3/3a961d6501e54add9a41aa53f15de99b) |
+| BNB Smart Chain | [https://arb1.arbitrum.io/rpc](https://arb1.arbitrum.io/rpc)                                                                             |
+| Solana          | [https://api.mainnet-beta.solana.com](https://api.mainnet-beta.solana.com)                                                               |
+
+### Dashboard Configuration
+
+To enter your provider url for a given network:
+
+1. Go to the [Configurations](https://app.dynamic.xyz/dashboard/configurations) page in your Dashboard.
+2. Click on the chain to open the details tab
+3. Click the down down arrow to expand a network
+4. Enter your Provider Url
+5. Click the test button to check url
+
+ Your browser does not support HTML video.
+
+### Usage
+
+#### RPC Providers
+
+You get the provider from the DynamicContext.
+
+```TypeScript
+const { rpcProviders } = useDynamicContext();
+```
+
+The rpcProvider is an object with the following fields: 
+
+```TypeScript
+export type DynamicRPCProviders = {
+   evmDefaultProvider: EvmRpcProvider | undefined;
+   evmProviders: EvmRpcProvider[] | undefined;
+   getEvmRpcProviderByChainId: (chainId: number) => EvmRpcProvider | undefined;
+   solanaDefaultProvider: SolanaRpcProvider | undefined;
+   solanaProviders: SolanaRpcProvider[] | undefined;
+};
+```
+
+##### EVM Providers methods
+
+Expanding on the EVM providers, there are 3 fields/methods:
+
+1. **evmDefaultProvider:** This returns a provider for Ethereum Mainnet if mainnet is enabled
+2. **evmProviders:** Is a full list of all EVM providers that have been configured
+3. **getEvmRpcProviderByChainId**: a convenience method that lets you retrieve a provider for a specific Chain ID
+
+
+```TypeScript
+export type EvmRpcProvider = {
+   chainId: number;
+   chainName: string;
+   provider: ethers.providers.JsonRpcProvider;
+};
+```
+
+#### Solana Providers
+
+Expanding on the Solana providers, there are 2 fields/methods:
+
+1. **solanaDefaultProvider:** Returns the provider for Solana Mainnet (101)
+2. **solanaProviders:**Is a full list of all Solana providers that have been configured
+
+These providers are also available on the WalletConnector through `getRpcProvider`
+
+```TypeScript
+export type SolanaRpcProvider = {
+   chainId?: number;
+   chainName: string;
+   provider: Connection;
+ };
+```
+
+#### Example
+
+Below is a simple example to fetch an arbitrary ENS mapping:
+
+
+```TypeScript
+const mainnetProvider = rpcProviders.evmDefaultProvider?.provider;                                                                   
+const ensAddress = mainnetProvider.resolveName('myname.eth');
+console.log('address for myname.eth', ensAddress);   
+```

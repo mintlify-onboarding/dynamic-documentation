@@ -1,0 +1,58 @@
+---
+title: "Introduction"
+---
+
+## Introduction
+
+Dynamic provides a robust API that allows developers to securely access their
+dashboard environment's data and programmatically update settings relevant to
+their Dynamic-powered application.
+
+## Authentication
+
+All APIs in this section require a bearer token used to authenticate requests
+and make sure the caller is authorized to access the resources in the requests.
+
+Please follow these steps:
+
+#### Get an API token from Dashboard
+
+1. Go to the your environment's dashboard
+   [Developer Tab](https://app.dynamic.xyz/dashboard/developer)
+2. In the "API Token" section, click on "Create Token"
+3. Provide a name for the token. The best practice here would be to name the
+   token after the system you intend to use this token with. A few examples:
+   "Mycompany Admin", "Ben's personal token", or "background-job service".
+4. **Make sure to copy the API token** before closing the modal. This is the
+   last time you will have access to the plaintext API token! Dynamic DOES NOT
+   have access to the plaintext API token anywhere. If you lose this API token,
+   you will need to create a new one.
+5. The token should start with the prefix `dyn_` followed by 56 alphanumeric
+   characters.
+
+#### Using the API token
+
+Use the token generated through dashboard to programmatically access Dynamic's
+API by adding it to the `Authentication` header of your HTTP request.
+
+Example:
+
+```bash curl
+curl \
+--location 'https://app.dynamic.xyz/api/v0/environments/<<sandboxEnvironmentId>>' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer ADD_YOUR_DYN_TOKEN_HERE'
+```
+
+## Standard errors
+
+- `400` \- Bad Request. The form of the request is invalid. Please check that
+  the path parameters, query parameters, or the request's body contains the
+  correct and expected information defined in our docs.
+- `401`\- Unauthorized. The endpoint that is being accessed requires an
+  `Authorization` header.
+- `403` \- Forbidden. The token authorized for the HTTP call does not have
+  access to the resource defined by the endpoint (eg. the specific environment,
+  allowlist, user, etc.)
+- `404` \- Not found. The path of the requested resource could not be found.
+  Please check that the URL path is correct or that the ID provided is correct.

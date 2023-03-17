@@ -1,0 +1,30 @@
+---
+title: "useAuthenticateConnectedUser"
+---
+
+### Summary
+
+A hook which can be used to authenticate already connected user. It's useful when there is need to authenticate user in connect-only mode.
+
+The hook needs to be initialized within a child of `DynamicContextProvier`
+
+### Usage
+
+#### Available functions and states:
+
+* `authenticateUser` \- when called starts signing already connected user.
+* `isAuthenticating` \- boolean which indicates the state of authentication.
+
+#### Example usage:
+
+```TypeScript
+const AuthenticateConnectedUserButton = () => {
+  const { authenticateUser, isAuthenticating } = useAuthenticateConnectedUser();
+
+  return (
+    <button onClick={ authenticateUser } disable={ isAuthenticating }>
+    { isAuthenticating ? 'Authenticating ...' : 'Authenticate connected wallet' }
+    </button>
+  )
+}
+```

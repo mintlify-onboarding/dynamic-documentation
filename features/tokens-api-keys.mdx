@@ -1,0 +1,47 @@
+---
+title: "SDK and API Keys"
+description:
+  "This page hosts the keys that you'll need to setup the SDK, validate the JWT,
+  and generate tokens for API usage."
+---
+
+To access this page, navigate to the
+[developer's](https://app.dynamic.xyz/dashboard/developer) page in your
+dashboard.
+
+#### Environment ID
+
+The environment ID is the key used for our platform to identify your SDK and
+associate the users to your project environment. Each project has 2 keys, one
+for Sandbox and one for Live. Whenever you want to setup a new instance of the
+SDK, you simply need to copy the Environment ID and copy it into the settings
+prop in the SDK.
+
+```ts TypeScript
+import { DynamicContextProvider, DynamicWidget } from "@dynamic-labs/sdk-react";
+
+const App = () => (
+  <DynamicContextProvider
+    settings={{
+      environmentId: "Enter your Environment ID here",
+    }}
+  >
+    <DynamicWidget />
+  </DynamicContextProvider>
+);
+
+export default App;
+```
+
+#### Public Key
+
+The public key is what you can use to validate the JWT is authentic on your
+backend. We recommend that you follow
+[this guide](/how-to-validate-users-on-the-backend) to properly validate your
+users and ensure that users are using authenticated JWT's.
+
+#### API Tokens
+
+To use our API's, all you'll need to do is create a token and use it in your API
+requests as a bearer Token. You can test out our API's
+[here](/reference/getenvironmentbyid-1).

@@ -1,0 +1,20 @@
+---
+title: "Chainalysis"
+---
+
+#### Summary
+
+The Chainalysis integration allows for blocking certain wallet addresses based on their association with sanctioned lists or risky categories. Today, you can enable this integration with a simple toggle in your dashboard.
+
+<Note>
+### 📘 Let us know if you want the Address Screening API
+
+Today, we have an integration with the free sanctions API. If you want us to add the address screening API, let us know through [slack or email](/v2.2/docs/support-1).
+</Note>
+
+#### Usage
+
+1. Enable the Chainalysis integration in your developer dashboard by going to the [Configurations tab](https://app.dynamic.xyz/dashboard/configurations).
+2. Use the free sanctions API to block wallet addresses associated with sanctioned lists or use the paid address screening API for additional risky category screening.
+3. View the results of the screening for any given user, go to the Users table and click on their row. Here you will see a "Pass" or "Fail" status.
+4. If a wallet address fails the screening, the user will see the "sad path" message reflected in the SDK, with a header "This address is not approved for access", secondary text "This wallet has been correlated to illicit activity and cannot be used to access this site."

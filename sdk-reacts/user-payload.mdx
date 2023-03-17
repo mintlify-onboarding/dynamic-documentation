@@ -1,0 +1,104 @@
+---
+title: "JWT Payload"
+---
+
+<Note>
+### 📘 The JWT Update
+
+The fields below are going to be released in mid-September. See below for the current, but soon to be deprecated, fields.
+</Note>
+
+When an end user connects their wallet, you, the developer, get a [JSON Web Token (JWT)](https://jwt.io/introduction) that can be used to verify some claims about the end user, notably a proof of ownership over a wallet public address.
+
+After authenticating the JWT token, see [Server-side verification](/v2.0/docs/how-to-validate-users-on-the-backend), you may want to leverage user and wallet information provided in the JWT. Below we have the content defined with the aim of following the JWT standards.
+
+##### Standard JWT claims:
+
+See: [https://www.rfc-editor.org/rfc/rfc7519#section-4.1](https://www.rfc-editor.org/rfc/rfc7519#section-4.1)
+
+| Field | Description                                                                                   |
+| ----- | --------------------------------------------------------------------------------------------- |
+| aud   | Audience for the JWT token. This claim shows what domain of the indended audience of the JWT. |
+| iss   | Issuer of the JWT token. This claim shows app.dynamic.xyz generated and issued the JWT.       |
+| sub   | Subject of the JWT token. userId in the deprecated info claim.                                |
+| iat   | Timestamp when the JWT token was issued.                                                      |
+| exp   | Timestamp when the JWT token will expire.                                                     |
+
+##### Dynamic-specific claims:
+
+These fields are **optional** and you depends on whether you want to collect this information during onboarding. For more information about collecting this information, see [here](/v2.0/docs/chains-1).
+
+| alias                | Alias field from customer information capture.                                                                                                                                     |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| email                | Email field from customer information capture.                                                                                                                                     |
+| environment\_id      | Unique ID of the project environment for the SDK, from [https://app.dynamic.xyz/dashboard/api](https://app.dynamic.xyz/dashboard/api). environmentId in the deprecated info claim. |
+| given\_name          | First name field from customer information capture. firstName in the deprecated info claim.                                                                                        |
+| family\_name         | Last name field from customer information capture. lastName in the deprecated info claim.                                                                                          |
+| lists                | Names of access lists enabled for this user.                                                                                                                                       |
+| blockchain\_accounts | List of all blockchain accounts connected to this user.                                                                                                                            |
+| verified\_account    | If present, this was the most recently signed and verified wallet blockchain account.                                                                                              |
+
+##### Blockchain account
+
+| Field         | Description                                                                                                          |
+| ------------- | -------------------------------------------------------------------------------------------------------------------- |
+| address       | Public address of the wallet. walletPublicKey in deprecated info claim.                                              |
+| chain         | [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md) valid chain namespace. Example: eip155. |
+| id            | Internal ID of the wallet in Dynamic.                                                                                |
+| wallet\_name  | Name of the wallet used to connect. wallet in deprecated info claim.                                                 |
+| name\_service | Name service data. When available, will contain resolved name service information for the blockchain address.        |
+
+#### Name Service Data
+
+| Field  | Description                                                           |
+| ------ | --------------------------------------------------------------------- |
+| avatar | URL for the avatar image of the resolved name service address.        |
+| name   | Resolved human-readable name for the address. Example: dynamicxyz.eth |
+
+#### Example
+
+```JSON{
+  "alias": "john",
+  "aud": "https://dashboard.hello.xyz",
+  "blockchain_accounts": [
+    {
+      "address": "0x000123abc",
+      "chain": "eip155",
+      "id": "af615228-99e5-48ee-905d-4575f0a6bfc9",
+      "wallet_name": "metamask"
+    }
+  ],
+  "email": "[[email protected]](/cdn-cgi/l/email-protection)",
+  "environment_id": "fb6dd9d1-09f5-43c3-8a8c-eab6e44c37f9",
+  "family_name": "bot",
+  "given_name": "jon",
+  "iss": "app.dynamic.xyz/fb6dd9d1-09f5-43c3-8a8c-eab6e44c37f9",
+  "lists": [ "Community dashboard acess list" ],
+  "sub": "d261ee91-8ea0-4949-b8bb-b6ab4f712a49",
+  "verified_account": {
+    "address": "0x000123abc",
+    "chain": "eip155",
+    "id": "af615228-99e5-48ee-905d-4575f0a6bfc9",
+    "wallet_name": "metamask"
+  },
+  "iat": 1660677597,
+  "exp": 1660684797
+}
+```
+
+#### Deprecated JWT fields (deprecated as of `v0.11.45`)
+
+The `info` claim and the fields within will soon be deprecated for the JWT structure and nomenclature listed above. 
+
+| Field                | Description                                                                                     |
+| -------------------- | ----------------------------------------------------------------------------------------------- |
+| info.alias           | Alias field from customer information capture                                                   |
+| info.chain           | Blockchain for the wallet used to connect to the environment. Valid values: ETH, SOL, EVM, FLOW |
+| info.email           | Email field from customer information capture                                                   |
+| info.environmentId   | Timestamp when the JWT token was issued.                                                        |
+| info.firstName       | Timestamp when the JWT token will expire.                                                       |
+| info.lastName        | Last name field from customer information capture                                               |
+| info.lists           | Names of access lists enabled for this user                                                     |
+| info.userId          | Unique ID of the use for this project environment                                               |
+| info.wallet          | Name of the wallet used to connect                                                              |
+| info.walletPublicKey | Address of the wallet used to connect                                                           |

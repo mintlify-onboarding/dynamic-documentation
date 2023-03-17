@@ -1,0 +1,45 @@
+---
+title: "NextJS with React 17 With Dynamic React SDK >=0.14.0"
+---
+
+## Upgrading Dynamic SDK to \>=0.14.0
+
+If you are still running NextJS with React \<=17, installing our latest SDK will fail to load the ESM module.
+
+This is because from 0.14.0+ we are now bundling a fully compliant hybrid ESM and CJS packages.
+
+After installing Dynamic's package, you might see this error:
+
+```Text
+Error: Cannot find module 'nextjs-blog/node_modules/react/jsx-runtime' imported from nextjs-blog/node_modules/@dynamic-labs/sdk-react/index.js
+Did you mean to import react/jsx-runtime.js?
+```
+
+This is because in React 18 they added an `exports` field to their package.json to handle mapping `react/jsx-runtime` to `react/jsx-runtime.js`
+
+### NextJS \>=13.1 Solution
+
+NextJS introduced a configuration option to automatically transpile ESM packages.
+
+```TypeScript
+const nextConfig = {
+  experimental: {
+    transpilePackages: ['@dynamic-labs/sdk-react'],
+  },
+};
+```
+
+### NextJS \<13.1
+
+Before 13.1, you need to `npm i next-transpile-modules` and update your next.config.js:
+
+```TypeScript
+const withTM = require('next-transpile-modules')(['@dynamic-labs/sdk-react']);
+
+const nextConfig = withTM({
+  reactStrictMode: true,
+});
+
+module.exports = nextConfig;
+
+```

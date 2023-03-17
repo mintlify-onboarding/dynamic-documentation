@@ -1,0 +1,127 @@
+---
+title: "Get a user by Id"
+api: "GET https://app.dynamic.xyz/api/v0/users/{userId}"
+---
+
+### Path Parameters
+
+<ParamField path="userId" type="string" required>
+  UUID of the user
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 200">
+
+<ResponseField name="user" type="object" >
+    <Accordion title="Show properties">
+
+        <ResponseField name="id" type="string" />
+        <ResponseField name="walletPublicKey" type="string" />
+        <ResponseField name="wallet" type="string" />
+        <ResponseField name="firstVisit" type="date-time" />
+        <ResponseField name="last-visit" type="date-time" />
+        <ResponseField name="email" type="string" />
+        <ResponseField name="alias" type="string" />
+        <ResponseField name="firstName" type="string" />
+        <ResponseField name="lastName" type="string" />
+        <ResponseField name="jobTitle" type="string" />
+        <ResponseField name="phoneNumber" type="string" />
+        <ResponseField name="tShirtSize" type="string" />
+        <ResponseField name="team" type="string" />
+        <ResponseField name="policiesConsent" type="string" />
+        <ResponseField name="username" type="string" />
+
+        <ResponseField name="country" type="string" >
+            Standard ISO 3166-1 alpha-2 two-letter country code
+        </ResponseField>
+
+        <ResponseField name="chain" type="string" >
+            `ETH` `EVM` `FLOW` `SOL` `ALGO` `STARK`
+        </ResponseField>
+
+        <ResponseField name="createdAt" type="date-time" />
+        <ResponseField name="updatedAt" type="date-time" />
+        <ResponseField name="projectEnvironment" type="object" />
+
+        <ResponseField name="sessions" type="array of objects" >
+            <Accordion title="Show properties">
+
+                <ResponseField name="id" type="string" />
+                <ResponseField name="createdAt" type="date-time" />
+                <ResponseField name="ipAddress" type="string" />
+                <ResponseField name="revokedAt" type="date-time" />
+
+            </Accordion>
+        </ResponseField>
+
+        <ResponseField name="wallets" type="array of objects" required >
+            <Accordion title="Show properties">
+
+                <ResponseField name="id" type="string" required />
+                <ResponseField name="name" type="string" required />
+
+                <ResponseField name="chain" type="string" required >
+                    `ETH` `EVM` `FLOW` `SOL` `ALGO` `STARK`
+                </ResponseField>
+
+                <ResponseField name="publicKey" type="string" required >
+                    Valid blockchain wallet address, must be an alphanumeric string without any special characters
+                </ResponseField>
+
+                <ResponseField name="provider" type="string" required >
+                    `browserExtension` `custodialService` `walletConnect` `qrCode` `deepLink`
+                </ResponseField>
+
+            </Accordion>
+
+        </ResponseField>
+
+        <ResponseField name="chainalysisChecks" type="array of objects" required >
+            <Accordion title="Show properties">
+
+                 <ResponseField name="id" type="string" required />
+                 <ResponseField name="createdAt" type="date-time" required />
+
+                 <ResponseField name="result" type="string" required >
+                    `OK` `BLOCKED` `FAILED`
+                 </ResponseField>
+
+                 <ResponseField name="walletPublicKey" type="string" required >
+                    Valid blockchain wallet address, must be an alphanumeric string without any special characters
+                 </ResponseField>
+
+                 <ResponseField name="response" type="string" required />
+
+            </Accordion>
+        </ResponseField>
+
+    </Accordion>
+
+</ResponseField>
+
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 404">Not found</Tab>
+
+<Tab title="🔴 500">
+Internal Server Error
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+</Tabs>

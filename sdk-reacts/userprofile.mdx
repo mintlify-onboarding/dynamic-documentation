@@ -1,0 +1,19 @@
+---
+title: "UserProfile"
+description:
+  "An object containing attributes about the user such as the wallet address,
+  email, first name, etc."
+---
+
+| Field                                       | Description                            |
+| ------------------------------------------- | -------------------------------------- |
+| userId: string                              | Dynamic's UUID                         |
+| environmentId: string                       | Dynamic's environment ID               |
+| chain: string                               | Current BlockChain name                |
+| wallet: string                              | Current wallet name                    |
+| email?: string                              | \[Optional\] - User's email            |
+| alias?: string                              | \[Optional\] - User's alias            |
+| firstName?: string                          | \[Optional\] - User's first name       |
+| lastName?: string                           | \[Optional\] - User's last name        |
+| phoneNumber? string                         | \[Optional\] - User's phone number     |
+| ens? : \{ name?: string, avatar?: string \} | \[Optional\] - The wallet's ENS values |

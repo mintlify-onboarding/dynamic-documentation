@@ -1,0 +1,79 @@
+---
+title: "Custom CSS"
+---
+
+<Note>
+  ### 📘 Must be on SDK v0.15.x
+</Note>
+
+### Summary
+
+In DynamicAuth v0.15.0 release candidate, we introduced [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web%5FComponents/Using%5Fshadow%5FDOM) to the SDK. Shadow DOM allows the SDK to look as intended wherever it is hosted and it plays nicely with your existing styling system. We completely rewrote our styling system to support encapsulation while still allowing for intentional styling overrides.
+
+### How to overrides SDK styles
+
+We introduced a new cssOverrides prop in the settings allowing you to pass either a string or JSX element for styling overrides. These overrides will be placed inside the shadow DOM and will only affect SDK elements. Overrides should be used when you want to completely customize the style and behaviour of the SDK. General theme customization can be done via CSS variables instead.
+
+#### Using a string
+
+You can pass string overrides directly through settings. The content will be wrapped by a style tag inside the shadow DOM. Here's an example that adds a one time rotating animation to the wallet logo in the wallet list.
+
+```TypeScript
+ const cssOverrides = 
+  .wallet-list-item__tile:hover > img {
+    animation: rotate 1s forwards;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+```
+
+<DynamicContextProvider  
+  settings={{  
+    // ...  
+    cssOverrides,  
+    // ...  
+  }}
+  >
+  <HomePage />
+</DynamicContextProvider>
+ ``
+
+#### Using JSX element
+
+You can link a stylesheets to be added the shadow DOM. Since the stylesheet is loaded, there might be a small delay before the styles get applied. If this is a problem, we recommend using the string method.
+
+```TypeScript
+<DynamicContextProvider
+  settings={{
+    // ...
+    cssOverrides: <link rel='stylesheet' href='/external-styles.css' />, // pass JSX element to be included in the shadow DOM
+    // ...
+  }}
+  >
+  <HomePage />
+</DynamicContextProvider>
+```
+
+#### Disabling shadow DOM
+
+Shadow DOM is enabled by default on the SDK version v0.15.0 rc and higher. If you wish to disable it, you can use the shadowDOMEnabled in the dynamic context settings.
+
+
+```TypeScript
+<DynamicContextProvider  
+  settings={{  
+    // ...  
+    shadowDOMEnabled: false,  
+    // ...  
+  }}  
+  >  
+  <Home />
+</DynamicContextProvider>
+```

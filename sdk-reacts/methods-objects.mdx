@@ -1,0 +1,37 @@
+---
+title: "Overview"
+description:
+  "Now that you have the basic flow set up, you can leverage some of Dynamic's
+  built-in methods."
+---
+
+## Components
+
+[**DynamicContextProvier settings**](/docs/dynamiccontextprovider-settings):
+Settings available when you first initialize `DynamicContextProvider` in your
+App.
+
+## Hooks
+
+**[useDynamicContext](/docs/usedynamiccontext)**: Dynamic's React Context which
+is initially set via `DynamicContextProvier`
+
+[**useWalletItemActions**](/docs/usewalletitemactions): Set of utility functions
+to sign with a specific wallet.
+
+## Models
+
+[**WalletConnector**](/docs/walletconnector): This is Dynamic's abstraction over
+the wallet interface. This can be used to interact with the users wallet.
+
+**[UserProfile](/docs/userprofile)**: An object containing attributes about the
+user such as the wallet address, email, first name, etc.
+
+[**Wallet**](/docs/wallet): An object containing the attributes about the
+connected wallet. This object would be available immediately after a wallet has
+been connected.
+
+[**Example**](/docs/example): An example of how to setup
+`DynamicContextProvider` with the appropriate settings, and then using the
+`walletConnector.getWeb3Provider` method to get the balance of the user's
+wallet.

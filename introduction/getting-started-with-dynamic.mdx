@@ -1,0 +1,106 @@
+---
+title: "⭐ Quickstart Guide"
+---
+
+<Warning>
+### (Legacy) NextJS with React \<17
+ 
+If you use NextJS with React 17 or below please follow the instructions, [here](/nextjs-with-react-17-with-dynamic-react-sdk-0140).
+
+</Warning>
+
+### Step 1: Create an account
+
+1. [Sign up with your wallet](https://app.dynamic.xyz) to get an environment ID
+2. Create an organization and a set up your first project
+3. Copy your `environmentID` from the Dynamic overview page
+4. (optional) [Configure your site's CORS origins](/security)
+
+### Step 2: Install our npm package
+
+You can install Dynamic's SDK with either `yarn` or `npm`. We currently support
+React and NextJS.
+
+```bash Shell
+npm install @dynamic-labs/sdk-react
+# or yarn add @dynamic-labs/sdk-react
+```
+
+### Step 3: Configure the SDK
+
+Copy the following snippet into your project and paste in your environmentId:
+
+<CodeGroup>
+
+```js JavaScript
+import { DynamicContextProvider, DynamicWidget } from "@dynamic-labs/sdk-react";
+
+const App = () => (
+  <DynamicContextProvider
+    settings={{
+      environmentId: "<<sandboxEnvironmentId>>",
+    }}
+  >
+    <DynamicWidget />
+  </DynamicContextProvider>
+);
+
+export default App;
+```
+
+```ts TypeScript
+import { DynamicContextProvider, DynamicWidget } from "@dynamic-labs/sdk-react";
+
+const App = () => (
+  <DynamicContextProvider
+    settings={{
+      appLogoUrl:
+        "https://upload.wikimedia.org/wikipedia/commons/3/34/Examplelogo.svg",
+      appName: "Example App",
+      environmentId: "Enter your Environment ID here",
+    }}
+  >
+    <DynamicWidget />
+  </DynamicContextProvider>
+);
+
+export default App;
+```
+
+</CodeGroup>
+
+### Step 4: Log in with your wallet, and see data in your developer dashboard
+
+Now that your widget is set up locally, try to log in. As soon as you do, head
+over to your [developer dashboard](https://app.dynamic.xyz/) and click on **user
+management** and **analytics**. You'll be able to see your user show up!
+
+![](/images/268b5a1-user_management.png)
+
+### Step 5: Customize your SDK design
+
+There are many ways to customize the Dynamic modal to fit your needs (you can
+explore them in the [SDK configuration](/connect-and-sign) section), but to
+start, we suggest setting a light/dark mode and a primary color for the modal,
+which you can do in the
+[design section of your developer dashboard](https://app.dynamic.xyz/dashboard/design/modal).
+
+### Step 6: Explore how to use our SDK
+
+After your users connect their wallets, you'll want to interact with them for
+various reasons. See the example and follow the guides to learn how our SDK
+makes it easy to interact with user & wallet objects, blockchain accounts, and
+more!
+
+### Step 7: Celebrate! (and dive deeper into Dynamic)
+
+That's it. You should now have a fully working version of the Dynamic login
+flow.
+
+Now that you have it set up, you can deep dive into our methods and objections
+guidelines, play around with options in your developer dashboard, customize your
+UI via the dashboard, pull user data from the API and do much more. The world is
+your oyster (imagine a deep movie voice).
+
+You can also [join our Slack Community](https://www.dynamic.xyz/slack) to ask us
+anything on your mind.

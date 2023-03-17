@@ -1,0 +1,40 @@
+---
+title: "Jest Error: SyntaxError: Unexpected token 'export'"
+---
+
+When using Jest to test a component that renders DynamicContextProvider, you might run into an error like:
+
+```Jest
+/Users/user/example/node_modules/uuid/dist/esm-browser/index.js:1
+    \(\{"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest\)\{export \{ default as v1 \} from './v1.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+      at Runtime.createScriptFromCode \(node_modules/jest-runtime/build/index.js:1605:14\)
+      at Object.<anonymous> \(node_modules/rpc-websockets/dist/lib/server.js:40:13\)
+      at Object.<anonymous> \(node_modules/rpc-websockets/dist/index.js:30:38\)
+      at Object.<anonymous> \(node_modules/@solana/web3.js/lib/index.cjs.js:22:21\)
+      at Object.<anonymous> \(packages/multi-wallet/src/wallets/solana/solProvider.ts:2:1\)
+      at Object.<anonymous> \(packages/multi-wallet/src/wallets/solana/phantom.ts:10:1\)
+      at Object.<anonymous> \(packages/multi-wallet/src/multi-wallet.ts:1:1\)
+      at Object.<anonymous> \(packages/multi-wallet/src/index.ts:5:1\)
+      at Object.<anonymous> \(node_modules/@dynamic-labs/sdk-react/index.cjs:5:19\)
+      at Object.<anonymous> \(__tests__/index.test.tsx:6:19\)
+```
+
+To fix it, add the following to your jest.config.js:
+
+```JavaScript
+moduleNameMapper: {
+  // Force module uuid to resolve with the CJS entry point, because Jest does not support package.json.exports. See https://github.com/uuidjs/uuid/issues/451
+  uuid: require.resolve('uuid'),
+  // Similar to uuid, force preact, uint8arrays and multiformats/basics to resolve with CJS entry point
+  preact: require.resolve('preact'),
+  uint8arrays: require.resolve('uint8arrays'),
+  'multiformats/basics': require.resolve('multiformats/basics'),
+},
+
+```
+
+For more info, see this Stack Overflow post: [https://stackoverflow.com/questions/73203367/jest-syntaxerror-unexpected-token-export-with-uuid-library](https://stackoverflow.com/questions/73203367/jest-syntaxerror-unexpected-token-export-with-uuid-library)

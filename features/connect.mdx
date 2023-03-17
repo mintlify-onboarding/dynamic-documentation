@@ -1,0 +1,75 @@
+---
+title: "Connect"
+---
+
+### Setup
+
+By default, the SDK will authenticate all users which means users will need to
+sign when logging in. This page describes how you can remove the authentication
+step and allow users to just connect their wallets to log into your site.
+
+### Usage
+
+#### initialAuthenticationMode (optional)
+
+If you want to skip signing a message and just connect, then set the
+`initialAuthenticationMode` to `connect-only`.
+
+<CodeGroup>
+
+```js Connect only
+import { useDynamicContext } from "@dynamic-labs/sdk-react";
+
+<DynamicContextProvider
+  settings={{
+    initialAuthenticationMode: 'connect-only',
+    ...
+  }}
+>
+  {...}
+</DynamicContextProvider>
+```
+
+```js Connect and Sign
+import { useDynamicContext } from "@dynamic-labs/sdk-react";
+
+<DynamicContextProvider
+  settings={{
+    initialAuthenticationMode: 'connect-and-sign', // this is the default option
+    ...
+  }}
+>
+  {...}
+</DynamicContextProvider>
+```
+
+</CodeGroup>
+
+#### enableVisitTrackingOnConnectOnly (optional)
+
+If you are using the `connect-only` mode, then you also have the option to
+disable visitor tracking by setting `enableVisitTrackingOnConnectOnly` to false.
+
+If you set this to `false` then we will not track visitors. Note that you will
+not be able to see visitor information in our visitors table or analytics page.
+
+```ts TypeScript
+import { useDynamicContext } from "@dynamic-labs/sdk-react";
+
+<DynamicContextProvider
+  settings={{
+    initialAuthenticationMode: 'connect-only',
+    enableVisitTrackingOnConnectOnly: false,
+    ...
+  }}
+>
+  {...}
+</DynamicContextProvider>
+```
+
+#### User Management & Analytics
+
+Any user who connect, but does not authenticate, will appear in your dashboard
+as a `Visitor`. You'll be able to see them in your
+[user management table](https://app.dynamic.xyz/dashboard/users/visitors) or in
+[analytics](https://app.dynamic.xyz/dashboard/analytics) under as `Visitors`.

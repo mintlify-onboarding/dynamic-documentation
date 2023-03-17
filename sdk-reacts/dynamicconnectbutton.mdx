@@ -1,0 +1,29 @@
+---
+title: "DynamicConnectButton"
+---
+
+## Settings
+
+Settings available when you first initialize `DynamicWidget` in your App.
+
+| Method                            | Description                                                                                      |
+| --------------------------------- | ------------------------------------------------------------------------------------------------ |
+| buttonContainerClassName: string; | This is an optional component passed in to DynamicConnectButton.                                 |
+| buttonClassName: string;          | Specifies the type of display used when a user clients on the Dynamic Widget. Defaults to modal. |
+| children: ReactNode;              | React components to be passed as children of the DynamicConnectButton                            |
+
+## Examples
+
+#### Add children
+
+```TypeScript
+const children = (
+  <div data-testid='exampleChild'>Connect a new wallet!</div>
+) as React.ReactElement;
+
+export const LoginView = () => (
+  <DynamicConnectButton>{children}</DynamicConnectButton>
+);
+```
+
+![](/images/5eb0360-Screenshot_2023-02-27_at_10.27.45_PM.png)

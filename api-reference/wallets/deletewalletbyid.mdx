@@ -1,0 +1,36 @@
+---
+title: "Delete wallet"
+api: "DELETE https://app.dynamic.xyz/api/v0/wallets/{walletId}"
+---
+
+### Path Parameters
+
+<ParamField path="walletId" type="string" required>
+  UUID of the wallet
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 204">successful operation</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 500">
+Internal Server Error
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+</Tabs>

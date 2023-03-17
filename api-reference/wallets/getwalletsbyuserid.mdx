@@ -1,0 +1,64 @@
+---
+title: "Get wallets by user"
+api: "GET https://app.dynamic.xyz/api/v0/users/{userId}/wallets"
+---
+
+### Path Parameters
+
+<ParamField path="userId" type="string" required>
+  UUID of the user
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 200">
+
+<ResponseField name="count" type="integer" required />
+
+<ResponseField name="wallets" type="array of objects" required >
+    <Accordion title="Show properties">
+
+        <ResponseField name="id" type="string" required />
+        <ResponseField name="name" type="string" required />
+
+        <ResponseField name="chain" type="string" required >
+            `ETH` `EVM` `FLOW` `SOL` `ALGO` `STARK`
+        </ResponseField>
+
+        <ResponseField name="publicKey" type="string" required >
+            Valid blockchain wallet address, must be an alphanumeric string without any special characters
+        </ResponseField>
+
+        <ResponseField name="provider" type="string" required >
+            `browserExtension` `custodialService` `walletConnect` `qrCode` `deepLink`
+        </ResponseField>
+
+    </Accordion>
+
+</ResponseField>
+
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 404">Not found</Tab>
+
+<Tab title="🔴 500">
+Internal Server Error
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+</Tabs>

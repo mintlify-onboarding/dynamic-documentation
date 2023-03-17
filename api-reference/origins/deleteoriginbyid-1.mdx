@@ -1,0 +1,38 @@
+---
+title: "Delete a origin by id"
+api: "DELETE https://app.dynamic.xyz/api/v0/origins/{originId}"
+---
+
+### Path Parameters
+
+<ParamField path="originId" type="string" required>
+  ID of the origin
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 204">successful operation</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 500">
+
+Error response
+
+ <ResponseField name="error" type="string" />
+ 
+</Tab>
+
+</Tabs>

@@ -1,0 +1,58 @@
+---
+title: "DynamicWidget"
+---
+
+### Summary
+
+Once a user connects their wallet, you may want to display a navigation component to show the current wallet and connected network. Additionally, if you collected information during onboarding, you may want to display the user's profile so they can edit their information, add additional wallets (if you [enabled multiwallet](/docs/multi-wallet)), and more. 
+
+The DynamicWidget is the parent component that has all these features available in it. If you want to explore sub-components for more granular control, then see [DynamicUserProfile](/docs/dynamicwidgetcontent) and the [DynamicNav](/docs/dynamicwidgetnav) components.
+
+### Settings
+
+There are two settings available when you initialize the `DynamicWidget` in your App.
+
+| Method                            | Description                                                                                                              |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| innerButtonComponent?: ReactNode; | This is an optional component passed in to DynamicConnectButton. Defaults to Connect your wallet                         |
+| variant?: 'modal' \| 'dropdown';  | Specifies whether to show DynamicWidget as a centered modal or a dropdown from the DynamicNav button. Defaults to modal. |
+
+### Examples
+
+#### variant = modal
+
+```TypeScript
+import { DynamicContextProvider, DynamicWidget} from '@dynamic-labs/sdk-react';
+
+const App = () => (
+  <DynamicContextProvider
+     settings={{
+       environmentId: 'Enter your Environment ID here'
+    }}>
+    <DynamicWidget variant='modal' /> 
+  </DynamicContextProvider>
+);
+
+export default App;
+```
+
+<img src="/images/DynamicWidgetVariantModal.gif" />
+
+#### variant = dropdown
+
+```TypeScript
+import { DynamicContextProvider, DynamicWidget} from '@dynamic-labs/sdk-react';
+
+const App = () => (
+  <DynamicContextProvider
+     settings={{
+       environmentId: 'Enter your Environment ID here'
+    }}>
+    <DynamicWidget variant='dropdown' /> 
+  </DynamicContextProvider>
+);
+
+export default App;
+```
+
+<img src="/images/DynamicWidgetVariantDropdown.gif" />

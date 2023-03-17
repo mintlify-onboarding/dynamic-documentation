@@ -1,0 +1,41 @@
+---
+title: "DynamicNav"
+---
+
+### Summary
+
+The DynamicNav component is responsible for rendering the network picker and the connected account field.
+
+Typically, if you want to use the DynamicNav, we recommend using the DynamicWidget since it's connected to the DynamicUserProfile.
+
+<Note>
+### 🚧 A duplicate widget is displayed.
+
+Make sure you do not render `DynamicWidget` along with `DynamicNav`. These components should not be used together.
+</Note>
+
+### Usage
+
+```JavaScript
+import React from "react";
+import {
+  useDynamicContext,
+  DynamicNav
+} from "@dynamic-labs/sdk-react";
+
+export const AppNavigation = () => {
+  const { user } = useDynamicContext();
+  return (
+    <nav className="nav">
+        <a className="nav__element" href="/">Home</a>
+        {
+            user && (
+                <div className="nav_element">
+                <DynamicNav />
+            </div>
+            )
+        }
+    </nav>
+  );
+};
+```

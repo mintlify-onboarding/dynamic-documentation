@@ -1,0 +1,50 @@
+---
+title: "Delete a token by token id"
+api:
+  "DELETE
+  https://app.dynamic.xyz/api/v0/environments/{environmentId}/tokens/{tokenId}"
+---
+
+### Path Parameters
+
+<ParamField path="environmentId" type="string" required>
+  ID of the environment
+</ParamField>
+
+<ParamField path="tokenId" type="string" required>
+  ID of the token
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 204">successful operation</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 404">Not found</Tab>
+
+<Tab title="🔴 405">
+Method Not Allowed
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 500">
+Internal Server Error
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+</Tabs>

@@ -1,0 +1,20 @@
+---
+title: "Light & Dark Mode"
+---
+
+While you can set your theme in our [Dashboard](/docs/theming), a lot of site support users switching between light and dark theme and it's important that our SDK updates to match the theme of the site.
+
+You can update whether you want to show the Light or Dark theme to customers by passing a prop to the SDK with `ThemeSettings`:
+
+
+```TypeScript
+<DynamicContextProvider
+  theme='dark', <-- you can pass either 'dark' or 'light'
+  settings={{
+    environmentId: "<<sandboxEnvironmentId>>",
+    appName: "<<projectName>>",
+    appLogoUrl: "...",
+  }}>
+  <HomePage />
+</DynamicContextProvider>
+```

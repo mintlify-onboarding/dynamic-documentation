@@ -1,0 +1,34 @@
+---
+title: "Captcha"
+---
+
+<Note>
+### 📘 Must be on SDK v0.15.2+
+</Note>
+
+## Summary
+
+Setting up a captcha can help protect your Dynamic-enabled site from bots. We currently support [hCaptcha](https://www.hcaptcha.com/) as our captcha provider.
+
+Here is an example of how it looks like when enabled in Dynamic's SDK.
+
+## Setting up hCaptcha
+
+To get started, you must first create an hCaptcha account.
+
+1. **Sign up for a new account on [hCaptcha](https://www.hcaptcha.com/)** \- We recommend considering upgrading to the "Pro" plan, which allows for "passive" and "friction-free" modes.
+2. **Add a new site** \- Make sure the hostname corresponds to the domain you are using the Dynamic SDK on. For example, if you plan to set up the Dynamic SDK in `app.myawesomesite.com`, then you should add this value to the Hostname sections in hCaptcha.
+![](/images/33e802f-Screenshot_2023-03-07_at_7.33.42_PM.png) 
+1. **Get your site key** \- This is used by the Dynamic SDK to communicate with hCaptcha and display a captcha challenge before the verification step in the wallet sign-in flow. Copy this value, which we will need to set up in Dynamic.
+![](/images/bc73d74-Screenshot_2023-03-07_at_7.37.33_PM.png) 
+1. **Get your secret key** \- This is used by the Dynamic server-side backend to verify the captcha result from the SDK, and is never leaked to the SDK. To get your secret key, click on your account profile on the upper right corner and select "Settings". You should see your plaintext secret key, which you should also copy to set up in Dynamic.
+![](/images/8f7d45c-Screenshot_2023-03-07_at_7.40.35_PM.png) 
+
+## Setting up Dynamic captcha
+
+Now that we have hCaptcha set up, we can move on to final configuration within Dynamic.
+
+1. **Log in to Dynamic Dashboard.** On the right navigation bar, click on "Configurations" then select "hCaptcha" under "Onboarding Fields"
+
+1. **Add your site key and secret key from hCaptcha** \- See previous steps on how to set up your hCaptcha credentials.
+2. **Enable** \- When you are ready to enable the captcha, please make sure to switch the "enable" toggle.

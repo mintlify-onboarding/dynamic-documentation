@@ -1,0 +1,15 @@
+---
+title: "React Static Flag Error"
+---
+
+<Note>
+### 🚧 The issue has been resolved - we no longer have Framer Motion as a dependency. \[ >0.14.x\]
+</Note>
+
+ React version 18, you might see a warning like this in the console:
+
+![](/images/29053ee-image.png)
+
+This is just noise and shouldn't be causing real issues. We've identified the source of the warning, and it's coming from our dependency on Framer Motion. We are working on removing as many dependencies as possible from the SDK, including Framer Motion. Once complete, this warning will no longer appear.
+
+For more information on the warning, [see this issue in the React repo](https://github.com/facebook/react/issues/24391)

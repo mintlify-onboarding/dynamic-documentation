@@ -1,0 +1,110 @@
+---
+title: "useDynamicContext"
+description: "Dynamic's React Context which is set via DynamicContextProvider"
+---
+
+| Method                                                      | Description                                                                                                                                                                                                                              |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| accountSwitchState: AccountSwitchState                      | This enum type specifies the current state of switching or linking wallets in a multi-wallet enabled environment. This can be idle, linking_new_wallet, switching_primary, primary_not_connected                                         |
+| authMode: AuthModeType                                      | This enum type specifies whether the SDK\’s users will need to sign to authenticate and prove ownership of their account, or just connect is enough. This can be connect-only or connect-and-sign                                        |
+| authToken: getAuthToken\(\)                                 | JSON web token \(JWT\) stored if the user is authenticated. This is the authenticated user\'s token. See: [backend verification](/docs/how-to-validate-users-on-the-backend#option-2-do-it-yourself-verification).                       |
+| awaitingSignatureState: AwaitingSignatureState              | This enum type specifies the current state while waiting for a signature of a new wallet to link in a multi-wallet enabled environment. This can be idle, linking_new_wallet, transferring_wallet                                        |
+| connectedWallets: Wallet\[\]                                | This contains a concatenated list of wallets between primaryWallet and secondaryWallets that are in a connected state.                                                                                                                   |
+| handleLogOut: \(\) => Promise                               | A helper-method to log-out the currently authenticated user account.                                                                                                                                                                     |
+| handleUnlinkWallet\(walletId: string\): Promise             | Helper function to unlink a wallet given a wallet ID from the user account.                                                                                                                                                              |
+| isAuthenticated: boolean                                    | Returns true when the user has been authenticated and has a JWT and valid user object.                                                                                                                                                   |
+| loadingNetwork: boolean                                     | Returns true when the SDK is looking for the network of the primary wallet\’s wallet connector.                                                                                                                                          |
+| multiWalletWidgetState: MultiWalletWidgetState              | This enum type specifies the current state of the widget in a multi-wallet enabled environment. This can be idle, awaiting_account_switch, awaiting_connection, awaiting_signature, detected_known_secondary_wallet, detected_new_wallet |
+| network: number \| undefined                                | This represents the current network selected for the primary wallet                                                                                                                                                                      |
+| networkConfigurations: NetworkConfigurationMap \| undefined | This contains the current network configurations for various EVM and Solana chains. These information includes chain ID, RPC URLs, and other important information.                                                                      |
+| primaryWallet: Wallet \| null                               | An instance of a Wallet that represents the most recent connected Wallet.                                                                                                                                                                |
+| qrcodeUri: string                                           | URI for the QR code to scan in the current modal.                                                                                                                                                                                        |
+| rpcProviders: DynamicRPCProviders                           | List of RPC providers and their settings to communicate with web3 services. These providers are configured on Dynamic's dashboard.                                                                                                       |
+| secondaryWallets: Wallet\[\]                                | List of other authenticated wallets linked to the user account that are not primary wallets.                                                                                                                                             |
+| setMultiWalletWidgetState: MultiWalletWidgetStateSetter     | It controls the intended state for a multi-wallet enabled environment.                                                                                                                                                                   |
+| setPrimaryWallet: \(walletId: string\) => void              | In a multi-wallet environment, this function can be used to indicate that a wallet, given the wallet ID, should be considered the primary wallet.                                                                                        |
+| setShowAuthFlow: Dispatch\<SetStateAction\>                 | It controls whether or not to display the DynamicAuthFlow SDK component.                                                                                                                                                                 |
+| setShowQrcodeModal: Dispatch\<SetStateAction\>              | It controls whether or not to display a QR code modal.                                                                                                                                                                                   |
+| showAuthFlow: boolean                                       | The value set by setShowAuthFlow, it controls whether or not to display the DynamicAuthFlow SDK component.                                                                                                                               |
+| showQrcodeModal: boolean                                    | Value set by setShowQrcodeModal, it controls whether or not to display a QR code modal.                                                                                                                                                  |
+| walletConnector: WalletConnector \| null                    | An instance of a WalletConnector that represents the most recent connected Wallet.                                                                                                                                                       |
+| wallets: WalletOption\[\]                                   | List of all available wallet options the environment\’s SDK users can select.                                                                                                                                                            |
+
+### Examples
+
+#### `setShowAuthFlow` \- use it to start signature request from user
+
+```TypeScript
+const ConnectButton = () => {
+  const { setShowAuthFlow } = useDynamicContext();
+  return (
+    <button
+      onClick={() => setShowAuthFlow(true)}
+    >
+      Connect your wallet
+    </button>
+  );
+};
+```
+
+#### `primaryWallet` \- use it to make operations on the currently active wallet
+
+- method to simply fetch balance of users wallet:
+
+```TypeScript
+const getBalance = async () => {
+  const balance = await primaryWallet.connector.getBalance();
+  return balance;
+};
+```
+
+- get users primary wallet
+
+```TypeScript
+const getAddress = () => {
+  const address = primaryWallet.address;
+  return address;
+};
+```
+
+- get all connected wallets by primary wallet connector
+
+```TypeScript
+const getConnectedAccounts = async () => {
+  const connectedAccounts = await primaryWallet?.connector.getConnectedAccounts();
+  return connectedAccounts;
+};
+```
+
+#### `walletConnector` \- use it to use currently connected walletConnector instead of primaryWallet
+
+```TypeScript
+const getConnectedAccounts = async () => {
+  const connectedAccounts = await walletConnector?.getConnectedAccounts();
+  return connectedAccounts;
+};
+```
+
+#### `handleLogOut` \- use it to log out currently logged in user
+
+```TypeScript
+const LogoutButton = () => {
+  const { handleLogOut } = useDynamicContext();
+  return (
+    <button
+      onClick={() => handleLogOut(true)}
+    >
+      Log out
+    </button>
+  );
+};
+```
+
+#### `authToken` \- use it to get authenticated user jwt
+
+```TypeScript
+const getJwt = () => {
+  const jwt = authToken;
+  return jwt;
+};
+```

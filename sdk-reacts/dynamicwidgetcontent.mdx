@@ -1,0 +1,66 @@
+---
+title: "DynamicUserProfile"
+---
+
+### Summary
+
+The DynamicUserProfile component is responsible for displaying the dialog or dropdown of the user's profile information, connected wallets, and more.
+
+_Note: it should be placed as high as possible in the component tree to guarantee that the component is always rendered._
+
+### Settings
+
+| Prop                             | Description                                                                                                                                                           |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| variant?: 'modal' \| 'dropdown'; | Specifies whether to show DynamicUserProfile as a centered modal or a dropdown. The component in the dropdown type renders relative to the parent. Defaults to modal. |
+
+### Usage
+
+#### Control opening and closing
+
+You can simply call `setShowDynamicUserProfile(boolean)` to show or close the DynamicUserProfile.
+
+```TypeScript
+import React from "react";
+import {
+  DynamicUserProfile,
+  useDynamicContext
+} from "@dynamic-labs/sdk-react";
+
+export const Example = () => {
+  const { setShowDynamicUserProfile } = useDynamicContext();
+  return (
+    <>
+      <button onClick={() => setShowDynamicUserProfile(true)}>
+        Click to open DynamicUserProfile!
+      </button>
+      <DynamicUserProfile />
+    </>
+  );
+};
+```
+
+#### Callback at closing or opening
+
+You can use the `showDynamicUserProfile` property to trigger the logic after opening/closing the widget.
+
+```java
+import React from "react";
+import {
+  DynamicWidgetUserProfile,
+  useDynamicContext
+} from "@dynamic-labs/sdk-react";
+
+export const Example = () => {
+    const { showDynamicUserProfile } = useDynamicContext();
+  React.useEffect(() => {
+        if (showDynamicUserProfile) {
+        /* On widget opens */
+    }   else {
+      /* On widget closes */
+    }
+  }, 
+  [showDynamicUserProfile])
+  return null;
+}
+```

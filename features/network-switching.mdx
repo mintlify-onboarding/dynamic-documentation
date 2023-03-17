@@ -1,0 +1,115 @@
+---
+title: "Custom Networks"
+---
+
+### Summary
+
+The SDK supports network switching for [EVM](https://ethereum.org/en/developers/docs/evm/) supported and custom networks. Configuring additional networks is done by providing the `evmNetworks` parameter inside the `DynamicContextProvider` settings
+
+### Setup
+
+#### evmNetworks
+
+Once you have determined the list of networks you want to support, you will need to pass an array of `EvmNetwork` to the `DynamicContextProvider` settings. The following example sets the Ethereum mainnet and Polygon as supported networks for the application. A comprehensive list of networks can be found at [chainlist.org](https://chainlist.org) 
+
+```TypeScript
+// Setting up list of evmNetworks
+const evmNetworks = [
+  {
+    blockExplorerUrls: ['https://etherscan.io/'],
+    chainId: 1,
+    chainName: 'Ethereum Mainnet',
+    iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
+    nativeCurrency: {
+      decimals: 18,
+      name: 'Ether',
+      symbol: 'ETH',
+    },
+    networkId: 1,
+    shortName: 'eth',
+    rpcUrls: ['https://mainnet.infura.io/v3/'],
+    vanityName: 'ETH Mainnet',
+  },
+{
+    blockExplorerUrls: ['https://etherscan.io/'],
+    chainId: 5,
+    chainName: 'Ethereum Goerli',
+    iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
+    nativeCurrency: {
+      decimals: 18,
+      name: 'Ether',
+      symbol: 'ETH',
+    },
+    networkId: 5,
+    rpcUrls: ['https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
+    shortName: 'eth',
+    vanityName: 'Goerli',
+  },
+  {
+    blockExplorerUrls: ['https://polygonscan.com/'],
+    chainId: 137,
+    chainName: 'Matic Mainnet',
+    iconUrls: ["https://app.dynamic.xyz/assets/networks/polygon.svg"]
+    nativeCurrency: {
+      decimals: 18,
+      name: 'MATIC',
+      symbol: 'MATIC',
+    },
+    networkId: 137,
+    rpcUrls: ['https://polygon-rpc.com'],
+    shortName: 'MATIC',
+    vanityName: 'Polygon',
+  },
+];
+
+const App = () => (
+  <DynamicContextProvider
+    settings={{
+      appLogoUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/3/34/Examplelogo.svg',
+      appName: 'Example App',
+      environmentId: 'REPLACE_WITH_YOUR_ENV_ID',
+      evmNetworks,
+    }}
+  >
+    <Home />
+  </DynamicContextProvider>
+);
+
+export default App;
+```
+#### Configuration
+
+| Field                                                               | Description                                                   |
+| ------------------------------------------------------------------- | ------------------------------------------------------------- |
+| blockExplorerUrls?: string\[\]                                        | \[Optional\] List of block explorers                        |
+| chainId: number                                                     | Chain Id                                                      |
+| chainName: string                                                   | Chain name                                                    |
+| iconUrls?: string\[\]                                               | \[Optional\] Chain icon urls                                  |
+| nativeCurrency: \{ decimals: number; name: string; symbol: string; \} | Characteristics of chain's currency                           |
+| networkId: number                                                   | Network Id. For most networks, it is the same as the chain id |
+| rpcUrls: string\[\]                                                 | list of network node urls                                     |
+
+You are now ready to switch networks!
+
+### Usage
+
+Using the [WalletConnector](/docs/methods-objects#walletconnector) instance provided by [useDynamicContext](/docs/methods-objects#usedynamiccontext), you have two useful methods for network switching
+
+| Method                                                                                                            | Description                                                                                                   |
+| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| supportsNetworkSwitching\(\): boolean                                                                               | whether the connector supports network switching.                                                             |
+| switchNetwork\(\{ networkChainId, networkName \}: \{ networkChainId?: number; networkName?: string; \}\): Promise\<void\> | switch to another network by provider either the network name or chain id specified in the list of EvmNetwork |
+
+When calling `switchNetwork` with a connector supporting network switching, the SDK will either request the user to confirm the network switch or add the network if it was not previously set.
+
+```TypeScript
+const { walletConnector } = useDynamicContext();
+
+if (walletConnector.supportsNetworkSwitching()) {
+  await walletConnector.switchNetwork({ networkChainId: 137 });
+  console.log("Success! Network switched");
+}
+```
+
+![1440](/images/e885cf6-406.png "Metamask network switching prompt")

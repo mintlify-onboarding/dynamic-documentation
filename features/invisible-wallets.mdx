@@ -1,0 +1,60 @@
+---
+title: "Embedded Wallets"
+---
+
+### Summary
+
+Onboarding new users to web3 can be a daunting task, especially for users who are not familiar with wallets. That is why we are enabling email sign up with an invisible wallet in the background. This significantly reduces the friction associated with the process!
+
+At Dynamic, we are partnering with best in class solutions to support this use case with more options coming in the future.
+
+To enable this functionality on your website, all you need to do is add your credentials and turn on a toggle.
+
+### Select your provider
+
+#### Magic.link
+
+To learn more about Magic, see their website [here](https://magic.link/).
+
+To add magic wallets to your sign up flow:
+
+1. Sign up to Magic
+2. Create a **Magic Auth** app
+3. Confirm you have your app credentials  
+   1. You can find your publishable API key and secret key on in the home page of your Magic Auth project
+
+<Warning>
+### 🚧 signTransaction is an unsupported method
+
+signTransaction is an unsupported method with MagicAuth. Make sure to use either the sendTransaction or signMessage methods.
+</Warning>
+
+#### Additional integration offering coming soon!
+
+A few providers that are coming soon:
+
+1. Web3Auth
+2. Blocto
+3. Lit
+
+### Add your credentials in Dynamic Dashboard
+
+Now that you've selected your preferred provider:
+
+1. Go to your [Configurations](https://app.dynamic.xyz/dashboard/configurations) page in the Dynamic Dashboard
+2. Open the Sign up with Email card
+3. Toggle on your preferred provider  
+   1. Add your credentials  
+   2. Press save
+
+<Warning>
+### 🚧 Start in sandbox
+
+To ensure credentials were added correctly, test first in Sandbox and confirm that wallets are generated in your provider's app. Once it looks good, go ahead and release this into your Live environment.
+</Warning>
+
+### Use the wallets
+
+For users that sign up with these wallets in the background, you will be to access these wallets as you would any other wallet.
+
+See here for more information on available wallet methods.

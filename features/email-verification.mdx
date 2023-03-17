@@ -1,0 +1,30 @@
+---
+title: "Email Verification"
+---
+
+<img src="https://res.cloudinary.com/mintlify/image/upload/v1678937545/Customers/Eqtble/signinwithemail_d1h1ud.gif" />
+
+**Summary**
+
+This page expands on the information capture described [here](/docs/information-capture) but for email, with added support for Uniqueness and Verification options.
+
+**Email Verification** verifies the validity of an email address provided by a customer by sending a One Time Password (OTP to ensure it is a functional and active email address. This helps prevent errors in customer communication and ensures that customer data is accurate.
+
+**Email Uniqueness** ensures that each customer has a unique email address in each project environment to prevent duplicates.
+
+**Usage**
+
+To enable Email OTP Verification and/or Uniqueness, follow these steps:
+
+1. Navigate to the Customer Information Capture tab in the [Configurations](https://app.dynamic.xyz/dashboard/configurations) page of the developer dashboard.
+2. Locate the email field in the form.
+3. Check the boxes for either or both OTP Verification and/or Uniqueness to enable them.
+4. Click the 'Save Changes' button to save your changes.
+
+Note: If Email Verification is enabled, Email Uniqueness will also be mandatory.
+
+<Warning>
+### 🚧 Caution when toggling verification/uniqueness on Live mode
+
+When enabling/disabling Email Verification and/or Uniqueness on live sites, be aware that such actions can result in data inconsistencies. If testing is necessary, it is recommended to conduct the tests on a Sandbox environment and to avoid frequently changing the fields on a live environment.
+</Warning>

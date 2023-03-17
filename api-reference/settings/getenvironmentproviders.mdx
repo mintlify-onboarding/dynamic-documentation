@@ -1,0 +1,68 @@
+---
+title: "Get the providers for an environment"
+api:
+  "GET
+  https://app.dynamic.xyz/api/v0/environments/{environmentId}/settings/providers"
+---
+
+### Path Parameters
+
+<ParamField path="environmentId" type="string" required>
+  ID of the environment
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 200">
+
+<ResponseField name="providers" type="array of objects" >
+
+    <Accordion title="Show properties" >
+
+        <ResponseField name="id" type="string" />
+
+        <ResponseField name="provider" type="string" required>
+            `emailOnly` `magicLink` `google` `facebook` `twitter`
+        </ResponseField>
+
+        <ResponseField name="enabledAt" type="date-time" />
+
+        <ResponseField name="clientId" type="string" >
+            Standard OAuth client ID. For more information, see: https://www.oauth.com/oauth2-servers/client-registration/client-id-secret/
+        </ResponseField>
+
+        <ResponseField name="clientSecret" type="string" >
+            Standard OAuth client secret key. For more information, see: https://www.oauth.com/oauth2-servers/client-registration/client-id-secret/
+        </ResponseField>
+
+        <ResponseField name="providerProjectId" type="string" >
+            Some providers require additional information, typically called a project ID or site ID
+        </ResponseField>
+
+    </Accordion>
+
+</ResponseField>
+
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 500">
+Internal Server Error
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+</Tabs>

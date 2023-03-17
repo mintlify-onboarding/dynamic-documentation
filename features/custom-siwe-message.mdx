@@ -1,0 +1,30 @@
+---
+title: "Custom Sign Message"
+---
+
+We currently send the following message when asking a user to sign their wallet
+when authenticating:
+
+> Welcome to \{\{your app name\}\}. Signing is the only way we can truly know
+> that you are the owner of the wallet you are connecting. Signing is a safe,
+> gas-less transaction that does not in any way give \{\{your app name\}\}
+> permission to perform any transactions with your wallet.
+
+<Note>Note: We base the default message on the standard SIWE format.</Note>
+
+If you would like to update this message and customize it for your users, you
+simply need to update this message by passing in the prop `siweStatement` and
+your custom message:
+
+```ts TypeScript
+<DynamicContextProvider
+  settings={{
+    environmentId: "<<sandboxEnvironmentId>>",
+    appName: "<<projectName>>",
+    appLogoUrl: "..."
+    siweStatement: "Your custom message goes here....",
+
+    ...
+  }}
+>
+```

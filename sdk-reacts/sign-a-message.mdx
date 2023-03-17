@@ -1,0 +1,28 @@
+---
+title: "Sign a message"
+description:
+  "In this example, we are creating a button to sign a message and log the
+  signature to the console."
+---
+
+```JavaScript
+import { useDynamicContext } from '@dynamic-labs/sdk-react';
+
+const SignMessageButton = () => {
+  const { primaryWallet } = useDynamicContext();
+
+  const signMessage = async () => {
+    if (!primaryWallet) return;
+
+    const signer = await primaryWallet.connector.getSigner();
+
+    if (!signer) return;
+
+    const signature = await signer.signMessage('example');
+
+    console.log('signature', signature);
+  };
+
+  return <button onClick={signMessage}>Sign message</button>;
+};
+```

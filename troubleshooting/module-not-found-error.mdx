@@ -1,0 +1,42 @@
+---
+title: "Module not found Error (Framer-motion/browser.js)"
+---
+
+<Note>
+### 🚧 The issue has been resolved - we no longer have Framer Motion as a dependency. \[ >0.14.x\]
+</Note>
+
+After installing the SDK you may hit an error when you try to build your React App:
+
+```
+ERROR in ./node_modules/@dynamic-labs/sdk-react/node_modules/framer-motion/dist/es/utils/process.mjs 5:17-24
+Module not found: Error: Can't resolve 'process/browser' in 'node_modules/@dynamic-labs/sdk-react/node_modules/framer-motion/dist/es/utils'
+Did you mean 'browser.js'?
+BREAKING CHANGE: The request 'process/browser' failed to resolve only because it was resolved as fully specified
+(probably because the origin is strict EcmaScript Module, e. g. a module with javascript mimetype, a '*.mjs' file, or a '*.js' file where the package.json contains '"type": "module"').
+The extension in the request is mandatory for it to be fully specified.
+Add the extension to the request.
+
+ERROR in ./node_modules/@dynamic-labs/sdk-react/node_modules/framer-motion/dist/es/utils/process.mjs
+Cannot read properties of undefined (reading 'module')
+```
+
+This is because by default Webpack requires all EcmaScript Modules to be fully specified when importing. This is likely an issue in a downstream third-party library such as framer-motion for which our SDK depends.
+
+This is a simple fix by updating your Webpack config rules to disable [fullySpecified](https://webpack.js.org/configuration/module/#resolvefullyspecified):
+
+```JavaScript
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false, // disable the behaviour
+        },
+      },
+    ],
+  },
+};
+```

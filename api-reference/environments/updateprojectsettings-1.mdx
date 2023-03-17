@@ -1,0 +1,171 @@
+---
+title: "Updates the environment settings"
+api: "PUT https://app.dynamic.xyz/api/v0/environments/{environmentId}"
+---
+
+### Path Parameters
+
+<ParamField path="environmentId" type="string" required>
+  ID of the environment
+</ParamField>
+
+### Body Parameters
+
+<ParamField body="chains" type="array of objects" required />
+<ParamField body="kyc" type="array of objects" required />
+<ParamField body="design" type="array of objects" required />
+<ParamField body="general" type="array of objects" required />
+<ParamField body="privacy" type="array of objects" required />
+
+<ParamField body="providers" type="array of objects">
+  External integrations like e-mail, social credentials, mpc providers, etc.
+</ParamField>
+
+<ParamField body="sdk" type="array of objects" required />
+<ParamField body="security" type="array of objects" required />
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 200">
+
+<ResponseField name="chains" type="array of objects" required>
+    <Accordion title="Show properties">
+
+        <ResponseField name="name" type="string" required/>
+        <ResponseField name="enabled" type="boolean" />
+
+        <ResponseField name="networks" type="array of object" >
+
+            <Accordion title="Show properties">
+
+                <ResponseField name="networkId" type="number" required/>
+                <ResponseField name="chainName" type="string" required/>
+                <ResponseField name="enabled" type="boolean" required/>
+                <ResponseField name="rpcUrl" type="string" />
+
+            </Accordion>
+
+        </ResponseField>
+
+    </Accordion>
+
+</ResponseField>
+
+<ResponseField name="kyc"  type="array of objects" required>
+    <Accordion title="Show properties">
+
+        <ResponseField name="name" type="string" required/>
+        <ResponseField name="required" type="boolean" required/>
+        <ResponseField name="enabled" type="boolean" required/>
+        <ResponseField name="unique" type="boolean" required/>
+        <ResponseField name="verify" type="boolean" required/>
+
+    </Accordion>
+
+</ResponseField>
+
+<ResponseField name="design" type="object" required >
+    <Accordion title="Show properties">
+
+        <ResponseField name="modal" type="object" />
+        <ResponseField name="button" type="object" />
+        <ResponseField name="widget" type="object" />
+
+    </Accordion>
+
+</ResponseField>
+
+<ResponseField name="general" type="object" required >
+    <Accordion title="Show properties">
+
+        <ResponseField name="displayName" type="string"  />
+        <ResponseField name="supportText" type="string"  />
+        <ResponseField name="appLogo" type="uri"  />
+        <ResponseField name="imageUserNotInAccessList" type="url"  />
+        <ResponseField name="imageUserInAccessList" type="url"  />
+        <ResponseField name="supportUrls" type="object"  />
+        <ResponseField name="collectUserDataWelcomeHeader" type="string"  />
+        <ResponseField name="collectUserDataWelcomeMessage" type="string"  />
+
+    </Accordion>
+
+</ResponseField>
+
+<ResponseField name="privacy" type="object" required >
+    <Accordion title="Show properties">
+
+        <ResponseField name="collectIp" type="boolean" />
+
+    </Accordion>
+
+</ResponseField>
+
+<ResponseField name="providers" type="array of objects" >
+    <Accordion title="Show properties">
+
+        <ResponseField name="id" type="string" />
+
+        <ResponseField name="provider" type="string" required>
+            `emailOnly` `magicLink` `google` `facebook` `twitter`
+        </ResponseField>
+
+        <ResponseField name="enabledAt" type="date-time" />
+
+        <ResponseField name="clientId" type="string" >
+            Standard OAuth client ID. For more information, see: https://www.oauth.com/oauth2-servers/client-registration/client-id-secret/
+        </ResponseField>
+
+        <ResponseField name="clientSecret" type="string" >
+            Standard OAuth client secret key. For more information, see: https://www.oauth.com/oauth2-servers/client-registration/client-id-secret/
+        </ResponseField>
+
+        <ResponseField name="providerProjectId" type="string" >
+            Some providers require additional information, typically called a project ID or site ID
+        </ResponseField>
+    </Accordion>
+
+</ResponseField>
+
+<ResponseField name="sdk" type="object" required >
+<Accordion title="Show properties">
+
+        <ResponseField name="multiWallet" type="boolean" />
+        <ResponseField name="walletConnect" type="object" />
+
+    </Accordion>
+
+</ResponseField>
+
+<ResponseField name="security" type="object" required >
+    <Accordion title="Show properties">
+
+        <ResponseField name="jwtDuration" type="object" />
+        <ResponseField name="hCaptcha" type="object" />
+
+    </Accordion>
+
+</ResponseField>
+
+</Tab>
+
+<Tab title="🔴 400">
+Bad Request
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 500">
+Internal Server Error
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+</Tabs>

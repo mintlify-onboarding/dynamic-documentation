@@ -1,0 +1,38 @@
+---
+title: "JwtBlockchainAccount"
+---
+
+```TypeScript
+export interface JwtBlockchainAccount {
+    /**
+     * Valid blockchain wallet address, must be an alphanumeric string without any special characters
+     * @type {string}
+     */
+    address: string;
+    /**
+     *
+     * @type {string}
+     */
+    chain: string;
+    /**
+     *
+     * @type {string}
+     */
+    id: string;
+    /**
+     *
+     * @type {NameServiceData}
+     */
+    nameService?: NameServiceData;
+    /**
+     *
+     * @type {string}
+     */
+    walletName: string;
+    /**
+     *
+     * @type {WalletProviderEnum}
+     */
+    walletProvider: WalletProviderEnum;
+}
+```

@@ -1,0 +1,35 @@
+---
+title: "Access Lists"
+---
+
+<img src="https://res.cloudinary.com/mintlify/image/upload/v1678938160/Customers/Eqtble/access_list_zhrnjx.gif" />
+
+#### Add your Access List
+
+If you're launching a new site, then access lists or waitlists are probably a high priority for you. In the [Configurations page](https://app.dynamic.xyz/dashboard/configurations) of your developer dashboard, click on the Access list card.
+
+Here you can create access lists based on wallet addresses. 
+
+1. Simply click "Create New List"
+2. Set a name for your list
+3. Add the addresses you want to give access to and an optional alias field to keep track of these addresses
+4. Enable the toggle when you're ready.
+5. Boom. You're done.
+
+You can create multiple lists to help keep track of different groups of users (ie, VIPs, beta users, internal users, etc). Note: a user only needs to be in one of the lists to pass. 
+
+Once enabled, if a user is not on your access list then they will be blocked from entering your site.
+
+![](/images/147d8d7-Screen_Shot_2022-08-11_at_11.51.29_AM.png)
+
+**Customize the copy**
+
+You can customize the copy through props in our SDK but update the `accessDeniedMessagePrimary` and `accessDeniedMessageSecondary`.
+
+```TypeScript
+<DynamicContextProvider
+      settings={{....  
+accessDeniedMessagePrimary: 'Your copy1',
+        accessDeniedMessageSecondary: 'Your Copy2',
+      }}
+```

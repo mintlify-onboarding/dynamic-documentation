@@ -1,0 +1,71 @@
+---
+title: "Security"
+description:
+  "We take security seriously at Dynamic and most of the work we do is behind
+  the scenes so you don't have to worry about it. We will surface some security
+  features that can be configured. "
+---
+
+Today, we have 2 features that you can configure
+
+1. CORS origin urls
+2. JWT expiration time
+
+### Allowed CORS Origin
+
+Adding origins for
+[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) to your project
+environment (sandbox and live) protects your environment from unauthorized
+websites using your public environment key.
+
+Any origins added to an environment will allow only those domains to make API
+requests via our SDK.
+
+#### Adding an Origin
+
+To add an origin, navigate to **Settings > Security** in the dashboard.
+
+![](/images/21e302e-Screen_Shot_2022-07-19_at_15.27.25.png "Screen Shot 2022-07-19 at 15.27.25.png")
+
+Click **Create Origin** and add your origin. (You can add multiple origins to
+any environment)
+
+![](/images/8fdcca6-Screen_Shot_2022-07-19_at_15.28.23.png "Screen Shot 2022-07-19 at 15.28.23.png")
+
+Be sure to format your origin according to the RFC 6545 format (exception of the
+wildcard `*`). An origin is a URL without the path.
+
+#### Using wildcards
+
+One or more `*` wildcard characters in your origin will represent 0 or more
+characters (a-z, 0-9, -, .) when matching origins.
+
+#### Acceptable Example Values
+
+- [http://domain.com](http://domain.com)
+- [https://domain.com](https://domain.com)
+- [https://sub.domain.com](https://sub.domain.com)
+- [http://127.0.0.1:4200](http://127.0.0.1:4200)
+- [http://localhost:3200](http://localhost:3200)
+- [https://my-app-\*.vercel.app](https://my-app-%2A.vercel.app)
+
+#### Unacceptable Example Values
+
+- domain.com
+- //domain.com
+- [https://domain.com/home](https://domain.com/home)
+
+### JWT Expiration Time
+
+In the security settings page, you can update the expiration date of the JWT
+token. The expiration time is the amount of time before one of your customers
+will need to sign to log in.
+
+To update this expiration time, navigate to **Settings > Security** in the
+dashboard. Enter the amount of time in Day, Weeks, Months for the expiration
+time.
+
+IMAGE NEEDED ONCE THIS GOES LIVE
+
+The default value that we have set is 2 hours. We recommend that you verify with
+a security expert or your security team before updating this value.

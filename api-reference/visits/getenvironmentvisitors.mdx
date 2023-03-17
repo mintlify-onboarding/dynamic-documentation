@@ -1,0 +1,85 @@
+---
+title: "Get all visitors for an environment"
+api: "GET https://app.dynamic.xyz/api/v0/environments/{environmentId}/visitors"
+---
+
+### Path Parameters
+
+<ParamField path="environmentId" type="string" required>
+  UUID of the environment
+</ParamField>
+
+### Query Parameters
+
+<ParamField query="filter" type="object" />
+
+<ParamField query="orderBy" type="string">
+  $COLUMN_NAME-asc|desc
+</ParamField>
+
+<ParamField query="offset" type="integer" default="0">
+  The number of items to skip before starting to collect the result set
+</ParamField>
+
+<ParamField query="limit" type="integer" default="20">
+  The numbers of items to return
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 200">
+
+<ResponseField name="count" type="integer" />
+
+<ResponseField name="visitors" type="array of objects" >
+    <Accordion title="Show properties">
+
+        <ResponseField name="id" type="string" required />
+        <ResponseField name="address" type="string" required />
+
+        <ResponseField name="chain" type="string" required >
+            `ETH` `EVM` `FLOW` `SOL` `ALGO` `STARK`
+        </ResponseField>
+
+        <ResponseField name="walletName" type="string" required />
+
+        <ResponseField name="provider" type="string" required >
+        `browserExtension` `custodialService` `walletConnect` `qrCode` `deepLink`
+        </ResponseField>
+
+        <ResponseField name="createdAt" type="string" required />
+        <ResponseField name="projectEnvironmentId" type="string" />
+
+    </Accordion>
+
+</ResponseField>
+
+</Tab>
+
+<Tab title="🔴 400">
+Bad Request
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 500">
+Internal Server Error
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+</Tabs>

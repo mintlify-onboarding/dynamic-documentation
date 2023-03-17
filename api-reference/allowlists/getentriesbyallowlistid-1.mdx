@@ -1,0 +1,77 @@
+---
+title: "Get all entries for an allowlist"
+api: "GET https://app.dynamic.xyz/api/v0/allowlists/{allowlistId}/entries"
+---
+
+### Path Parameters
+
+<ParamField path="allowlistId" type="string" required>
+  ID of the allowlist
+</ParamField>
+
+### Query Parameters
+
+<ParamField query="orderBy" type="string">
+  $COLUMN_NAME-asc|desc
+</ParamField>
+
+<ParamField query="offset" type="integer" default="0">
+  The number of items to skip before starting to collect the result set
+</ParamField>
+
+<ParamField query="limit" type="integer" default="20">
+  The numbers of items to return
+</ParamField>
+
+<ParamField query="query" type="string">
+  Keywords to search for in alias or walletPublicKey
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 200">
+
+<ResponseField name="count" type="integer" required />
+
+<ResponseField name="entries" type="array of objects" >
+    <Accordion title="Show properties" >
+
+        <ResponseField name="id" type="string" required />
+        <ResponseField name="allowListId" type="string" required />
+        <ResponseField name="walletPublicKey" type="string" required />
+        <ResponseField name="alias" type="string" required />
+
+    </Accordion>
+
+</ResponseField>
+
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 405">
+Method Not Allowed
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 500">
+Error response
+
+<ResponseField name="error" type="string" />
+ 
+</Tab>
+
+</Tabs>

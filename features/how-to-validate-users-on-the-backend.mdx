@@ -1,0 +1,52 @@
+---
+title: "Server-side verification"
+---
+
+When an end user connects their wallet, you, the developer, get a [JSON Web Token (JWT)](https://jwt.io/introduction) that can be used to verify some claims about the end user, notably a proof of ownership over a wallet public address.
+
+Upon authentication, we generate a JWT signed with a private key (using RS256 algorithm) that is unique to you. In turn, you can use the associated public key (found in the [API tab](https://app.dynamic.xyz/dashboard/api) of your developer dashboard) to ensure that the token is authentic and hasn't been tampered with. In other words, if a JWT issued by Dynamic can be successfully verified with your public key, the information it contains can be trusted.
+
+You can do this in multiple ways.
+
+#### Option 1: Leverage [Passport.js](https://www.passportjs.org)
+
+We offer an official [passport-dynamic](https://github.com/dynamic-labs/passport-dynamic) extension.
+
+#### Option 2: Do-It-Yourself Verification
+
+1. Install the [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) package
+2. Obtain your public key from Dynamic's API dashboard or through our [/keys](https://app.dynamic.xyz/api-docs/#/Environments/getKeysForEnvironment) API endpoint.
+3. Get the JWT through the Dynamic SDK with [authToken](/docs/methods-objects#usedynamiccontext).
+4. Send the authToken to the server as a Bearer token
+
+```JavaScript
+import { useEffect, useState } from "react";
+
+export const useFetch = (authToken: string | null) => {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      await fetch("http://localhost:9000/api", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }).then(response => response.json()).then(setData);
+    }
+  
+    fetchApi()
+  }, [authToken]);
+
+  return { data };
+};
+```
+
+5. Verify the JWT on your server with the [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) package
+
+```JavaScript
+var jwt = require('jsonwebtoken');
+
+jwt.verify(token, publicKey, function(err, decodedToken) {
+  console.log(decodedToken)
+});
+```

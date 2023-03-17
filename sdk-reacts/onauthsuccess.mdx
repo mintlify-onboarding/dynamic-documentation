@@ -1,0 +1,40 @@
+---
+title: "OnAuthSuccess"
+---
+
+### Summary
+
+This callback will be called after the user successfully authenticates.
+
+### Usage
+
+```TypeScript
+<DynamicContextProvider
+  settings={{
+    eventsCallbacks: {
+      onAuthSuccess: (args) => {
+        console.log('onAuthSuccess was called', args);
+      }
+    }
+  }}
+>
+ {/* ... rest of your app ... */}
+</DynamicContextProvider>
+```
+
+### Callback Argument Value
+
+```TypeScript{
+  authToken: string;
+  handleLogOut: () => Promise<void>;
+  isAuthenticated: boolean;
+  user: UserProfile;
+  walletConnector: WalletConnector;
+}
+```
+
+<Note>
+### 📘 For details about UserProfile, see here: [https://docs.dynamic.xyz/docs/userprofile](/docs/userprofile)
+
+For details about WalletConnector, see here: [https://docs.dynamic.xyz/docs/walletconnector](/docs/walletconnector)
+</Note>

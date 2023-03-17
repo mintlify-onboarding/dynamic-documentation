@@ -1,0 +1,40 @@
+---
+title: "OnLinkSuccess"
+---
+
+### Summary
+
+This callback will be called when the user successfully links a wallet.
+
+### Usage
+
+```TypeScript
+<DynamicContextProvider
+  settings={{
+    eventsCallbacks: {
+      onLinkSuccess: (args) => {
+        console.log('onLinkSuccess was called', args);
+      }
+    }
+  }}
+>
+ {/* ... rest of your app ... */}
+</DynamicContextProvider>
+```
+
+### Callback Argument Value
+
+```TypeScript{
+  authToken: string;
+  handleLogOut: () => Promise<void>;
+  isAuthenticated: boolean;
+  user: UserProfile;
+  walletConnector: WalletConnector;
+}
+```
+
+<Note>
+### 📘 For details about UserProfile, see here: [https://docs.dynamic.xyz/docs/userprofile](/docs/userprofile)
+
+For details about WalletConnector, see here: [https://docs.dynamic.xyz/docs/walletconnector](/docs/walletconnector)
+</Note>

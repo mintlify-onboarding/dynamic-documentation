@@ -1,0 +1,27 @@
+---
+title: "useWalletItemActions"
+---
+
+### Summary
+
+A hook with utility functions to sign with a specific wallet. 
+
+The hook needs to be initialized within a child of `DynamicContextProvier`
+
+#### `openWallet` \- available from version `v0.14.32`
+
+Initiates the signing process for a specific wallet without opening the dynamic auth flow. 
+
+For example, you can create a button that will sign the user with MetaMask specifically.
+
+```TypeScript
+const SignWithMetaMaskButton = () => {
+  const { openWallet } = useWalletItemActions();
+
+  return (
+    <button onClick={() => openWallet('metamask')}>
+      Sign with MetaMask
+    </button>
+  )
+}
+```

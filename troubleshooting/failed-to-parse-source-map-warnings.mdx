@@ -1,0 +1,23 @@
+---
+title: "Failed to parse source map warnings"
+---
+
+If using create-react-app v5, you may see some warnings (although they appear like errors) when running/building your react application.
+
+This has been reported as seen in this [Github discussion](https://github.com/facebook/create-react-app/discussions/11767).
+
+Example Warning Message
+
+```
+WARNING in ./node_modules/json-rpc-engine/dist/mergeMiddleware.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from 'node_modules/json-rpc-engine/src/mergeMiddleware.ts' 
+file: Error: ENOENT: no such file or directory, 
+open 'node_modules/json-rpc-engine/src/mergeMiddleware.ts'
+```
+
+These warnings can be ignored, and do not affect your application. However, if you wish to suppress the warnings and disable source map loader altogether, you can set this environment variable:
+
+```Shell
+export GENERATE_SOURCEMAP=false
+```

@@ -1,0 +1,53 @@
+---
+title: "Recommended Wallet"
+---
+
+![](/images/03a6d37-Screen_Shot_2022-11-29_at_2.50.55_PM.png)
+
+In our New to Web3 help section in our SDK, we show a common wallet for users to get started for each chain. For now, if you have enabled more than 1 chain, then we will show only 1 chain and 1 wallet.
+
+To change the default wallet shown in this this section, you can pass a prop `newToWeb3WallChainMap` to specify the primary chain (this is to support multi-chain) and then specify the wallet with the corresponding chain.
+
+```Typescript
+<DynamicContextProvider
+   settings={{
+      environmentId: "1234abcd-1234-abcd-1234-abcd12343abc",
+      appName: "My Cool App",
+      appLogoUrl: "..."
+      apiBaseUrl: "https://app.dynamic.xyz/api/v0",
+      newToWeb3WalletChainMap: {
+         primary_chain: 'flow', // <-- Here you specify the primary chain which will select the wallet to show
+         wallets: { // <-- With "wallets" you specify the wallets you want to show for each chain
+           flow: 'blocto',
+           solana: 'glow'
+         },
+      },
+   }}>
+   <HomePage />
+</DynamicContextProvider>
+```
+
+For customers supporting multiple chains, you can also specify which chain you prefer to be primary which will then recommend the wallet aligned with that chain. You **don't** need to specify a wallet unless you want to override the current default wallet for that chain.
+
+```TypeScript 
+<DynamicContextProvider  
+   settings={{  
+     apiBaseUrl: {your api base url},  
+     appLogoUrl: {your app logo url},  
+     appName: {your app name},  
+     environmentId: {your environment id},  
+     newToWeb3WalletChainMap: {  
+          primary_chain: 'flow',  
+          wallets: {} 
+       },  
+     },  
+   }}>  
+   <HomePage />  
+</DynamicContextProvider>
+```
+
+<Note>
+### 📘 More updates coming soon
+
+We're in the process of revamping this section with lots of improvements to help new users to web3 get their first wallet!
+</Note>

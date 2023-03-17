@@ -1,0 +1,58 @@
+---
+title: "getNetwork"
+---
+
+### Summary
+
+This utility function should be used to find the current network used by a wallet. It receives the wallet connector and returns a promise that will resolve with the network.
+
+### Annotation
+
+TypeScript
+
+`const getNetwork: (walletConnector: WalletConnector | null) => Promise<number | undefined>
+`
+
+### Examples
+
+##### Get primary wallet network
+
+TypeScript
+
+```TypeScript
+import { useDynamicContext, getNetwork } from '@dynamic-labs/sdk-react';
+
+const App = () => {
+  const { primaryWallet } = useDynamicContext();
+
+  useEffect(() => {
+    const walletConnector = primaryWallet.connector;
+    
+    getNetwork(walletConnector).then((network) => {...});
+  }, [primaryWallet]);
+    
+  ...
+}
+```
+
+##### Get a network for all connected wallets
+
+TypeScript
+
+```TypeScript
+import { useDynamicContext, getNetwork } from '@dynamic-labs/sdk-react';
+
+const App = () => {
+  const { connectedWallets } = useDynamicContext();
+
+  useEffect(() => {
+    connectedWallets.forEach(async ({ connector }) => {
+      const network = await getNetwork(connector);
+      
+      ...
+    });
+  }, [connectedWallets]);
+    
+  ...
+}
+```

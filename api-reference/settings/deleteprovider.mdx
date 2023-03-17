@@ -1,0 +1,40 @@
+---
+title: "Delete a provider by providerId"
+api: "DELETE https://app.dynamic.xyz/api/v0/settings/providers/{providerId}"
+---
+
+### Path Parameters
+
+<ParamField path="providerId" type="string" required>
+  ID of the provider
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 204">
+
+successful operation
+
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 500">
+Internal Server Error
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+</Tabs>

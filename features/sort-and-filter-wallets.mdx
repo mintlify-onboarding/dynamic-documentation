@@ -1,0 +1,132 @@
+---
+title: "Sort and Filter Wallets"
+---
+
+### Summary
+
+There are a few helper methods you can leverage to sort, filter, remove, or filter and sort wallets. You can call the methods from within the `walletsFilter` prop. 
+
+The helper methods are:
+
+1. FilterWallets
+2. RemoveWallets
+3. SortWallets
+4. FilterAndSortWallets
+5. BYOF (Bring your own function)
+
+### Setup
+
+#### walletsFilter (optional)
+
+To filter and sort wallets, you'll want to use the `walletsFilter` prop under settings. You will then use either the one of the helper methods or BYOF to organize your wallet list.
+
+```TypeScript 
+import { DynamicContextProvider, DynamicWidget, FilterWallets } from '@dynamic-labs/sdk-react';
+....
+ <DynamicContextProvider
+  settings={{
+    ...
+    walletsFilter: //select the function you want to use to filter and/or sort.
+    }
+  }}
+> 
+```
+
+### Usage
+
+#### FilterWallets
+
+If you would like to filter out all wallets except for a predefined list, then call the FilterWallets method and include the wallets that you want your users to use:
+
+
+```TypeScript
+import { DynamicContextProvider, DynamicWidget, FilterWallets } from '@dynamic-labs/sdk-react';
+....
+ <DynamicContextProvider
+  settings={{
+    ...
+    walletsFilter: FilterWallets(['wallet1', 'wallet2', 'wallet3', 'wallet4']);
+    }
+  }}
+> 
+```
+
+#### SortWallets
+
+The Dynamic SDK has a predefined sorted list of wallets. If you want to change the wallet list to a different ordered list, add a sorted array of the wallets that you want to appear first.  
+The rest of the wallets will keep their current order.
+
+TypeScript
+
+```TypeScript
+import { DynamicContextProvider, DynamicWidget, SortWallets } from '@dynamic-labs/sdk-react';
+....
+ <DynamicContextProvider
+  settings={{
+    ...
+    walletsFilter: SortWallets(['wallet1', 'wallet2', 'wallet3', 'wallet4']);
+    }
+  }}
+> 
+```
+
+#### FilterAndSortWallets
+
+If you would like to combine the previous two options, then you can use the FilterAndSortWallets method to define the wallets that you want to appear in a specific order.
+
+```TypeScript
+import { DynamicContextProvider, DynamicWidget, FilterAndSortWallets } from '@dynamic-labs/sdk-react';
+....
+ <DynamicContextProvider
+  settings={{
+    ...
+    walletsFilter: FilterAndSortWallets(['wallet1', 'wallet2', 'wallet3', 'wallet4']);
+    }
+  }}
+> 
+```
+
+#### RemoveWallets
+
+If you want to remove specific wallets from the available list of wallets, you can call the RemoveWallets and specify which wallets you don't want your users to use:
+
+```TypeScript
+import { DynamicContextProvider, DynamicWidget, RemoveWallets } from '@dynamic-labs/sdk-react';
+....
+ <DynamicContextProvider
+  settings={{
+    ...
+    walletsFilter: RemoveWallets(['wallet1', 'wallet2', 'wallet3', 'wallet4']);
+    }
+  }}
+> 
+```
+
+#### BYOF (Bring Your Own Function)
+
+If the above helper methods are not sufficient, you can design your own function and pass it to walletFilter.
+
+```TypeScript
+<DynamicContextProvider
+  settings={{
+    ...
+    walletsFilter: (wallets) =>  {
+      return wallets.filter((wallet) => {
+        return ['wallet1', 'wallet2'].includes(wallet.key)
+      });
+    },
+  }}
+>
+
+```
+
+#### Fetch standardized wallet keys
+
+To find the key of all the wallets you can output all the keys using the following syntax:
+
+```TypeScript
+import { useDynamicContext } from ‘@dynamic-labs/sdk-react’;
+
+const { wallets } = useDynamicContext();
+console.log(wallets.map((wallet) => wallet.key));         
+```

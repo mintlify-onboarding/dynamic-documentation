@@ -1,0 +1,78 @@
+---
+title: "Create a new entry for an allowlist"
+api: "POST https://app.dynamic.xyz/api/v0/allowlists/{allowlistId}/entries"
+---
+
+### Path Parameters
+
+<ParamField path="allowlistId" type="string" required>
+  ID of the allowlist
+</ParamField>
+
+### Body Parameters
+
+<ParamField body="walletPublicKey" type="string" required>
+  Valid blockchain wallet address, must be an alphanumeric string without any
+  special characters
+</ParamField>
+
+<ParamField body="alias" type="string" />
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 201">
+
+<ResponseField name="" type="array of objects" >
+    <Accordion title="Show properties" >
+
+        <ResponseField name="id" type="string" required />
+        <ResponseField name="allowListId" type="string" required />
+        <ResponseField name="walletPublicKey" type="date-time" />
+        <ResponseField name="alias" type="string" />
+
+    </Accordion>
+
+</ResponseField>
+
+</Tab>
+
+<Tab title="🔴 400">
+Bad Request
+
+  <ResponseField name="" type="string" />
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 422">
+  <ResponseField name="code" type="string">
+    `email_already_exists` `allowlist_already_exists`
+    `allowlist_entry_already_exists` `reassign_wallet_error`
+    `reassign_wallet_confirm` `members_cannot_delete_themself`
+    `username_already_exists` `wrong_email_verification_token`
+    `invalid_email_verification` `too_many_email_verification_attempts`
+    `organization_name_already_exists` `project_name_already_exists`
+    `wallet_not_deployed`
+  </ResponseField>
+</Tab>
+
+<Tab title="🔴 500">
+Error response
+
+<ResponseField name="error" type="string" />
+ 
+</Tab>
+
+</Tabs>

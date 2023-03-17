@@ -1,0 +1,39 @@
+---
+title: "Delete user"
+api: "DELETE https://app.dynamic.xyz/api/v0/users/{userId}"
+---
+
+### Path Parameters
+
+<ParamField path="userId" type="string" required>
+  UUID of the user
+</ParamField>
+
+### Responses
+
+<Tabs>
+
+<Tab title="🟢 200">
+successful operation
+
+</Tab>
+
+<Tab title="🔴 401">
+Unauthorized
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 403">
+Forbidden
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+<Tab title="🔴 500">
+Internal Server Error
+
+  <ResponseField name="error" type="string" />
+</Tab>
+
+</Tabs>
